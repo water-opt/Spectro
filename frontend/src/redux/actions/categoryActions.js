@@ -10,7 +10,7 @@ export const getCategories = () => async dispatch => {
 
     try {
         dispatch({ type: START_LOADING });
-        const response = await axios.get('http://localhost:5004/api/category');
+        const response = await axios.get('http://localhost:4000/api/category');
         dispatch({ type: STOP_LOADING });
         dispatch({ type: GET_CATEGORIES, payload: response.data.categories });
 
@@ -33,7 +33,7 @@ export const createCategory = formData => async dispatch => {
         //     }
         // };
         dispatch({ type: START_LOADING});
-        const response = await axios.post('http://localhost:5004/api/category', formData);
+        const response = await axios.post('http://localhost:4000/api/category', formData);
         dispatch({ type: STOP_LOADING});
         dispatch({ type: SHOW_SUCCESS_MESSAGE, payload: response.data.successMessage});
         dispatch({ type: CREATE_CATEGORY, payload: response.data.category});
