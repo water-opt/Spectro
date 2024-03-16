@@ -7,7 +7,7 @@ import { CREATE_PRODUCT, GET_PRODUCTS, DELETE_PRODUCT,  GET_PRODUCT } from "../c
 export const createProduct = formData => async dispatch => {
     try{
         dispatch({ type: START_LOADING});
-        const response = await axios.post('http://localhost:5000/api/product',formData);
+        const response = await axios.post('http://localhost:5001/api/product',formData);
         dispatch({ type: STOP_LOADING});
         dispatch({ type: SHOW_SUCCESS_MESSAGE, payload: response.data.successMessage });
         dispatch({
@@ -27,7 +27,7 @@ export const createProduct = formData => async dispatch => {
 export const getProducts = () => async dispatch => {
     try{
         dispatch({ type: START_LOADING});
-        const response = await axios.get('http://localhost:5000/api/product');
+        const response = await axios.get('http://localhost:5001/api/product');
         dispatch({ type: STOP_LOADING});
         dispatch({ type: GET_PRODUCTS, payload: response.data.products, });
         
@@ -45,7 +45,7 @@ export const getProducts = () => async dispatch => {
 export const getProduct = productId => async dispatch => {
     try{
         dispatch({ type: START_LOADING});
-        const response = await axios.get(`http://localhost:5000/api/product/${productId}`);
+        const response = await axios.get(`http://localhost:5001/api/product/${productId}`);
         dispatch({ type: STOP_LOADING});
         dispatch({ type: GET_PRODUCT, payload: response.data, });
         
@@ -61,7 +61,7 @@ export const getProduct = productId => async dispatch => {
 export const deleteProduct = productId => async dispatch => {
     try{
         dispatch({ type: START_LOADING});
-        const response = await axios.delete(`http://localhost:5000/api/product/${productId}`);
+        const response = await axios.delete(`http://localhost:5001/api/product/${productId}`);
         dispatch({ type: STOP_LOADING});
         dispatch({ type: DELETE_PRODUCT, payload: response.data, });
         

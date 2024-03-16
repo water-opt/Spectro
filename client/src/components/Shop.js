@@ -39,7 +39,7 @@ const Shop = () => {
         setText(e.target.value);
     
         try {
-            const response = await axios.post('http://localhost:5000/api/filter/search', { type: 'text', query: e.target.value });
+            const response = await axios.post('http://localhost:5001/api/filter/search', { type: 'text', query: e.target.value });
             dispatch({ type: GET_PRODUCTS, payload: response.data.products });
         } catch (err) {
             console.log('getProductsByFilter api error: ', err);
@@ -70,7 +70,7 @@ const Shop = () => {
     
         try {
             // Make API call to filter products by category
-            const response = await axios.post('http://localhost:5000/api/filter/search', { type: 'category', query: updatedCategoryIds });
+            const response = await axios.post('http://localhost:5001/api/filter/search', { type: 'category', query: updatedCategoryIds });
             dispatch({ type: GET_PRODUCTS, payload: response.data.products });
             setCategoryIds(updatedCategoryIds); // Update local state with new category IDs
         } catch (err) {

@@ -4,8 +4,8 @@
   "description": "Furniture Store Using MERN Stack",
   "main": "server.js",
   "scripts": {
-    "start": "node server.js",
-    "start-server": "nodemon server.js --ignore './client/'"
+    "start": "nodemon server.js --ignore './client/'",
+    "start-dev": "node server.js"
   },
   "author": "Nimasha Gamage",
   "license": "MIT",

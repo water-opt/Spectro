@@ -12,7 +12,7 @@ export const  createCategory = async (formData) => {
             },
         };
     
-        const response = await axios.post('http://localhost:5000/api/category', formData, config);
+        const response = await axios.post('http://localhost:5001/api/category', formData, config);
     
         return response;
     }
@@ -25,7 +25,7 @@ export const  createCategory = async (formData) => {
 export const  getCategories = async () => {
 
     
-        const response = await axios.get('http://localhost:5000/api/category');
+        const response = await axios.get('http://localhost:5001/api/category');
              return response;
     
    
