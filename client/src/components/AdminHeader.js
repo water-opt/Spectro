@@ -6,7 +6,7 @@ const showHeader = () => (
             <div className='row'>
                 <div className='col-md-6'>
                     <h1>
-                        <i className='fas fa-home'> D a s h b o a r d</i>
+                        <i> Product  Management</i>
                     </h1>
                 </div>
             </div>

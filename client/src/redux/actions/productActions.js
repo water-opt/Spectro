@@ -40,6 +40,8 @@ export const getProducts = () => async dispatch => {
     }
 };
 
+
+
 export const getProduct = productId => async dispatch => {
     try{
         dispatch({ type: START_LOADING});

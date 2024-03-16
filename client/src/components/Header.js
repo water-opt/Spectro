@@ -24,6 +24,13 @@ const Header = () => {
                     </ul> */}
 
                     <ul className="navbar-nav ms-auto mb-2 mb-lg-0">
+
+                        <li className="nav-item">
+                            <Link to='/admin/shop' className="nav-link" aria-current="page" ><i className='fas fa-shopping-bag'></i> Shop</Link>
+                        </li>
+                        <li className="nav-item">
+                            <Link to='/admin/home' className="nav-link" aria-current="page" ><i className='fas fa-home'></i> Home</Link>
+                        </li>
                         <li className="nav-item">
                             <Link to='/admin/dashboard' className="nav-link" aria-current="page" ><i className='fas fa-home'></i> Dashboard</Link>
                         </li>

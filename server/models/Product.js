@@ -30,7 +30,9 @@ const ProductSchema = new mongoose.Schema({
         type: Number,
         required: true
     }
-}, { timestamps: true})
+}, { timestamps: true});
+
+ProductSchema.index({ productName: 'text'});
 
 const Product = mongoose.model('Product', ProductSchema);
 

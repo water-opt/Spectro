@@ -6,6 +6,7 @@ const cookieParser = require('cookie-parser');
 const connectDB = require('./database/db');
 const categoryRoutes = require('./routes/category');
 const productRoutes = require('./routes/product');
+const filterRoutes = require('./routes/filter');
 
 //middleware
 app.use(cors());
@@ -15,6 +16,7 @@ app.use(cookieParser());
 app.use('/api/category', categoryRoutes);
 app.use('/api/product', productRoutes);
 app.use('/uploads', express.static('uploads'));
+app.use('/api/filter', filterRoutes);
 
 app.get('/', (req, res) => {
     res.status(200).send('Hello from server!');

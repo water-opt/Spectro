@@ -12,7 +12,7 @@ const AdminBody = () => {
                 <div className='row row-cols-1 row-cols-md-3 g-4'>
                     {products && products.map(product => (
                         <div key={product._id} className='col mb-4'>
-                            <Card product={product} />
+                            <Card product={product}  adminPage={true}/>
                         </div>
                     ))}
                 </div>

@@ -54,6 +54,7 @@ exports.readAll = async (req, res) => {
     }
 };
 
+
 exports.read = async (req, res) => {
     
     try{
@@ -83,13 +84,6 @@ exports.update= async (req, res) => {
 
     const oldProduct = await Product.findByIdAndUpdate(productId, req.body);
 
-    // fs.unlink(`uploads/${oldProduct.fileName}`, (err) => {
-    //     // if (err) throw err;
-    //     if(err) {
-    //         console.error(`Error: ${err}`);
-    //     }
-    //     console.log('Image successfully deleted from the filesystem');
-    // });
 
     if (req.file !== undefined && req.file.filename !== oldProduct.fileName) {
 		fs.unlink(`uploads/${oldProduct.fileName}`, err => {
