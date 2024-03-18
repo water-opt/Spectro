@@ -31,13 +31,19 @@ app.use(express.json());
 app.use(cookieParser());
 
 /* Configure routes */
+app.get('/', (req, res) => {
+    res.status(200).send('Hello from server!');
+});
 app.use('/api/category', categoryRoutes);
 app.use('/api/product', productRoutes);
 app.use('/uploads', express.static('uploads'));
 app.use('/api/filter', filterRoutes);
-app.get('/', (req, res) => {
-    res.status(200).send('Hello from server!');
-});
+app.use('/api/orders', orderRoutes);
+app.use('/api/cart', cartRoutes);
+app.use('/api/deliveryvehicles', deliveryVehicleRoutes);
+app.use('/api/riders', riderRoutes);
+app.use('/api/user', userRoutes);
+
 
 /* Initialize database connection */
 connectDB();
