@@ -11,6 +11,7 @@ const orderRoutes = require('./routes/order.route');
 const cartRoutes = require('./routes/cart.route');
 const riderRoutes = require('./routes/rider.route');
 const deliveryVehicleRoutes = require('./routes/vehicle.route');
+const orderRiderRoutes = require('./routes/orderRider.route')
 
 /* Configure environment variables */
 require('dotenv').config();
@@ -43,6 +44,7 @@ app.use('/api/cart', cartRoutes);
 app.use('/api/deliveryvehicles', deliveryVehicleRoutes);
 app.use('/api/riders', riderRoutes);
 app.use('/api/user', userRoutes);
+app.use('/api/order/rider', orderRiderRoutes);
 
 
 /* Initialize database connection */

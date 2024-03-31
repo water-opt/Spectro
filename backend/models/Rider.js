@@ -32,6 +32,10 @@ const RiderSchema = mongoose.Schema({
     license: {
         type: String,
         require: true
+    },
+    role: {
+        type: String,
+        default: "rider"
     }
 })
 

@@ -3,8 +3,7 @@ const mongoose = require('mongoose')
 const vehicleSchema = new mongoose.Schema({
     rider: {
         type: mongoose.SchemaTypes.ObjectId,
-        ref: 'Rider',
-        require: true
+        ref: 'Rider'
     },
     license: {
         type: String,

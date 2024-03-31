@@ -4,27 +4,29 @@ const mongoose = require('mongoose')
 const { validationResult } = require('express-validator') // for validation
 
 const placeOrder = async (req, res) => {
-    // Validate request body
-    const errors = validationResult(req)
-    if (!errors.isEmpty()) {
-      return res.status(400).json({ errors: errors.array() })
-    }
-  
-    const { user, product, quantity, total, address } = req.body
-  
-    // Check if user is logged in (e.g., check for a user ID in the session)
-    if (!req.session.userId) {
-      return res.status(401).json({ error: 'Unauthorized. Please login to place an order.' })
-    }
-  
+  const { orderItems } = req.body;
+
     try {
-      const order = await model.create({ user: user, product: product, quantity: quantity, total: total, address: address })
-      res.status(201).json(order) // 201 Created for successful creation
+        const orders = await Promise.all(orderItems.map(async (item) => {
+            const product = item.product;
+            const newOrder = await model.create({
+                user: req.session.userId,
+                product: product,
+                quantity: item.quantity,
+                total: item.total,
+                address: req.session.address,
+            });
+            return newOrder;
+        }));
+
+        const orderIds = orders.map(order => order._id);
+
+        res.status(201).json({ message: 'Order placed successfully', orderIds: orderIds });
     } catch (error) {
-      console.error(error)
-      res.status(500).json({ error: 'Internal Server Error' })
+        console.error('Error placing order:', error);
+        res.status(500).json({ message: 'Internal server error' });
     }
-  }
+}
   
 
 const getOneOrder = async (req, res) => {
@@ -36,7 +38,7 @@ const getOneOrder = async (req, res) => {
   }
 
   try {
-    const order = await model.findOne({ _id: id }).populate('product')
+    const order = await model.findOne({ _id: id }).populate('product').populate('user')
     if (!order) {
       return res.status(404).json({ error: 'Order not found' })
     }
@@ -52,6 +54,16 @@ const getOrders = async (req, res) => {
 
   try {
     const orders = await model.find({ user: userId }).populate('product')
+    res.status(200).json(orders)
+  } catch (error) {
+    console.error(error)
+    res.status(500).json({ error: 'Internal Server Error' })
+  }
+}
+
+const getAllOrders = async (req, res) => {
+  try {
+    const orders = await model.find().populate('product').populate('user')
     res.status(200).json(orders)
   } catch (error) {
     console.error(error)
@@ -98,10 +110,34 @@ const updateOrder = async (req, res) => {
   }
 }
 
+const updateQuantity = async (req, res) => {
+  const { productId } = req.params;
+  const { quantity } = req.body;
+
+  try {
+      const cartItem = await model.findOneAndUpdate(
+          { 'product._id': productId },
+          { $set: { 'quantity': quantity } },
+          { new: true }
+      );
+      
+      if (!cartItem) {
+          return res.status(404).json({ message: 'Cart item not found' });
+      }
+
+      res.status(200).json({ message: 'Quantity updated successfully', cartItem });
+  } catch (error) {
+      console.error('Error updating quantity:', error);
+      res.status(500).json({ message: 'Internal server error' });
+  }
+}
+
 module.exports = {
   placeOrder,
   getOneOrder,
   getOrders,
   removeOrder,
-  updateOrder
+  updateOrder,
+  updateQuantity,
+  getAllOrders
 }

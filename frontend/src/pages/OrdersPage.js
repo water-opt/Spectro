@@ -1,73 +1,94 @@
-import { useState, useEffect } from 'react'
-import { Link } from 'react-router-dom'
-import '../styles/Orders.css'
+import React, { useState, useEffect } from 'react';
+import axios from 'axios';
+import '../styles/Orders.css';
 
 const Orders = () => {
-    const [orders, setOrders] = useState(null)
-    const [filteredOrders, setFilteredOrders] = useState(null)
-    const [isLoading, setLoading] = useState(true)
-    const [error, setError] = useState(false)
-    const [searchQuery, setSearchQuery] = useState('')
-    const [dateFilter, setDateFilter] = useState(null)
+    const [orders, setOrders] = useState(null);
+    const [filteredOrders, setFilteredOrders] = useState(null);
+    const [isLoading, setLoading] = useState(true);
+    const [error, setError] = useState(false);
+    const [searchQuery, setSearchQuery] = useState('');
+    const [dateFilter, setDateFilter] = useState(null);
+    const [selectedOrder, setSelectedOrder] = useState(null);
 
     useEffect(() => {
         const fetchOrders = async () => {
             try {
-                const OrdersRawDetails = await fetch('/api/orders')
-                const OrdersJson = await OrdersRawDetails.json()
-                setOrders(OrdersJson)
-                setLoading(false)
+                const response = await axios.get('/api/orders');
+                setOrders(response.data);
+                setLoading(false);
             } catch (error) {
-                setError(true)
+                setError(true);
             }
-        }
+        };
 
-        fetchOrders()
-    }, [])
+        fetchOrders();
+    }, []);
 
     useEffect(() => {
-        filterOrders()
-    }, [orders, searchQuery, dateFilter])
+        filterOrders();
+    }, [orders, searchQuery, dateFilter]);
 
     const filterOrders = () => {
-        if (!orders) return
+        if (!orders) return;
 
-        let filtered = orders
+        let filtered = [...orders];
 
         // Apply search by title filter
         if (searchQuery) {
-            filtered = filtered.filter(order => order.product && order.product.title.toLowerCase().includes(searchQuery.toLowerCase()))
+            filtered = filtered.filter(order => order.product && order.product.productName.toLowerCase().includes(searchQuery.toLowerCase()));
         }
 
         // Apply date filter
         if (dateFilter) {
-            filtered = filtered.filter(order => new Date(order.createdAt) >= dateFilter)
+            filtered = filtered.filter(order => new Date(order.createdAt) >= dateFilter);
         }
 
-        setFilteredOrders(filtered)
-    }
+        setFilteredOrders(filtered);
+    };
+
+    const cancelOrder = async (id, title) => {
+        if (window.confirm(`Please confirm the cancellation of order '${title}'`)) {
+            try {
+                await axios.delete(`/api/orders/${id}`);
+                setOrders(orders.filter(order => order._id !== id));
+                setSelectedOrder(null);
+                alert('Order canceled successfully.');
+            } catch (error) {
+                console.log('Error canceling order:', error);
+            }
+        }
+    };
 
     const handleSearchChange = (event) => {
-        setSearchQuery(event.target.value)
-    }
+        setSearchQuery(event.target.value);
+    };
 
     const handleDateChange = (event) => {
-        const date = event.target.value ? new Date(event.target.value) : null
-        setDateFilter(date)
-    }
+        const date = event.target.value ? new Date(event.target.value) : null;
+        setDateFilter(date);
+    };
+
+    const handleRowClick = (order) => {
+        setSelectedOrder(order);
+    };
+
+    const handleClosePopup = () => {
+        setSelectedOrder(null);
+    };
 
     if (error) {
         return (
             <div>
                 An error occurred ...
             </div>
-        )
+        );
     } else if (isLoading) {
         return (
             <div>
                 Loading ...
             </div>
-        )
+        );
     }
 
     return (
@@ -90,21 +111,16 @@ const Orders = () => {
                         <table className="styled-table">
                             <thead>
                                 <tr>
-                                    <th className="col"></th>
+                                    <th className="col">Title</th>
                                     <th className="col">Date</th>
-                                    <th className="col">Quantity</th>
-                                    <th className="col">Status</th>
                                     <th className="col">Total</th>
                                 </tr>
                             </thead>
                             <tbody>
                                 {filteredOrders && filteredOrders.map((order) => (
-                                    <tr key={order._id}>
-                                        {/* <td>{order._id}</td> */}
-                                        <td><Link to={`/orders/management/${order._id}`}>{order.product ? order.product.title : 'N/A'}</Link></td>
+                                    <tr key={order._id} onClick={() => handleRowClick(order)}>
+                                        <td>{order.product ? order.product.productName : 'N/A'}</td>
                                         <td>{new Date(order.createdAt).toLocaleDateString()}</td>
-                                        <td>{order.quantity}</td>
-                                        <td>{order.status}</td>
                                         <td>LKR {order.total}</td>
                                     </tr>
                                 ))}
@@ -113,8 +129,26 @@ const Orders = () => {
                     </div>
                 </div>
             </div>
+            {selectedOrder && (
+                <div className="order-details-popup">
+                    <div className="popup-content">
+                        <span className="close-btn" onClick={handleClosePopup}>×</span>
+                        <h2 style={{ marginBottom: '30px', fontWeight: '700', fontSize: '20px' }}>Order Details</h2>
+                        <div className="order-details">
+                            <p><strong style={{ marginRight: '46px' }}>Title:</strong> {selectedOrder.product ? selectedOrder.product.productName : 'N/A'}</p>
+                            <p><strong style={{ marginRight: '45px' }}>Date:</strong> {new Date(selectedOrder.createdAt).toLocaleDateString()}</p>
+                            <p><strong style={{ marginRight: '17px' }}>Quantity:</strong> {selectedOrder.quantity}</p>
+                            <p><strong style={{ marginRight: '30px' }}>Status:</strong> <span className={`status ${selectedOrder.status.toLowerCase()}`}>{selectedOrder.status}</span></p>
+                            <p><strong style={{ marginRight: '46px' }}>Total:</strong> LKR {selectedOrder.total}</p>
+                        </div>
+                        <div className="button-container">
+                            <button onClick={() => cancelOrder(selectedOrder._id, selectedOrder.product.productName)}>Cancel Order</button>
+                        </div>
+                    </div>
+                </div>
+            )}
         </div>
-    )
-}
+    );
+};
 
-export default Orders
+export default Orders;

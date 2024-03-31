@@ -1,6 +1,7 @@
 const express = require('express');
 const bcrypt = require('bcrypt');
 const User = require('../models/User');
+const Rider = require('../models/Rider');
 
 const SALT_ROUNDS = 10
 
@@ -29,31 +30,52 @@ const registerUser = async (req, res) => {
 };
 
 const loginUser = async (req, res) => {
+  const { email, password } = req.body;
+  
+  console.log(typeof password)
+
   try {
-    const { email, password } = req.body;
+    console.log(password)
 
     if (!email || !password) {
       return res.status(400).json({ error: 'Please provide email and password' });
     }
 
-    const user = await User.findOne({ email: email });
-    if (!user) {
-      return res.status(401).json({ error: 'Login failed' }); // Generic error message
+    let user, rider;
+    let isMatchUser, isMatchRider;
+
+    user = await User.findOne({ email: email });
+    rider = await Rider.findOne({ email: email });
+
+    if (user) {
+      isMatchUser = bcrypt.compare(password, user.password);
+    } else if (rider) { 
+      isMatchRider = rider.nic.toString() === password;
+    } else {
+      return res.status(401).json({ error: 'Login failed' });
     }
 
-    const isMatch = await bcrypt.compare(password, user.password);
-    if (!isMatch) {
-      return res.status(401).json({ error: 'Login failed' }); // Generic error message
-    }
-
-    req.session.userId = user._id;
-
-    console.log(`Login successful | User: ${user.username}`);
-    res.json({ message: 'Login successful' }); // Avoid sending sensitive data
+    if (!(isMatchUser || isMatchRider)) {
+      return res.status(401).json({ error: 'Login failed' }); 
+    } else if (isMatchRider) {
+      req.session.userId = rider._id;
+      req.session.role = rider.role;
+      console.log(`Login successful | User: ${rider._id}`);
+      res.json({ message: 'Login successful', role: rider.role });
+      console.log(rider.role)
+    } else if (isMatchUser) {
+      req.session.userId = user._id;
+      req.session.role = user.role;
+      console.log(`Login successful | User: ${user._id}`);
+      res.json({ message: 'Login successful', role: user.role });
+      console.log(user.role)
+    } 
   } catch (error) {
     console.error(error);
-    res.status(500).json({ error: 'Internal Server Error' });
+    res.status(500).json({ error: `${error}` });
   }
 };
+
+
 
 module.exports = { registerUser, loginUser };

@@ -108,28 +108,38 @@ exports.update= async (req, res) => {
 
 };
 
-
-
-
 exports.delete = async (req, res) => {
-    
-    try{
+    try {
+        const productId = req.params.productId;
+        const deletedProduct = await Product.findByIdAndDelete(productId);
 
-       const productId = req.params.productId;
-       const deletedProduct = await Product.findByIdAndDelete(productId);
+        if (!deletedProduct) {
+            return res.status(404).json({ errorMessage: 'Product not found' });
+        }
 
-       fs.unlink(`uploads/${deletedProduct.fileName}`, (err) => {
+        // Assuming 'uploads' directory is in the root directory
+        const filePath = `uploads/${deletedProduct.fileName}`;
 
-        if(err) throw err;
-        console.log('Image successfully deleted from filesystem: ', deletedProduct.fileName);
-       });
+        // Check if file exists before trying to delete it
+        fs.access(filePath, fs.constants.F_OK, (err) => {
+            if (err) {
+                console.error('Error accessing file:', err);
+                return res.status(500).json({ errorMessage: 'Error accessing file' });
+            }
 
-       res.json(deletedProduct);
+            // File exists, proceed to delete
+            fs.unlink(filePath, (unlinkErr) => {
+                if (unlinkErr) {
+                    console.error('Error deleting file:', unlinkErr);
+                    return res.status(500).json({ errorMessage: 'Error deleting file' });
+                }
 
-    }catch (err) {
-        console.log(err, 'productController.delete error');
-        res.status(500).json({
-            errorMessage: 'Please try again later'
+                console.log('Image successfully deleted from filesystem:', deletedProduct.fileName);
+                res.json(deletedProduct);
+            });
         });
+    } catch (err) {
+        console.error('Error:', err);
+        res.status(500).json({ errorMessage: 'Please try again later' });
     }
 };

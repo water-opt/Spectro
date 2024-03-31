@@ -1,11 +1,13 @@
-import React, { useState } from 'react';
+import React, { useState, useContext } from 'react';
 import { useNavigate } from 'react-router-dom';
-import '../styles/LoginPage.css'; 
+import '../styles/LoginPage.css';
+import RoleContext from '../components/RoleContext'; 
 
 const LoginPage = () => {
   const [email, setEmail] = useState('');
   const [password, setPassword] = useState('');
   const [error, setError] = useState(null);
+  const { setRole } = useContext(RoleContext);
   const navigate = useNavigate(); // Hook to navigate to different pages
 
   const handleSubmit = async (event) => {
@@ -23,10 +25,21 @@ const LoginPage = () => {
       }
 
       const data = await response.json();
+      if (!data || typeof data.role === 'undefined') {
+        throw new Error('Invalid response data');
+      }
       console.log('Login successful:', data); // Handle successful login
 
-      // Redirect to /orders/management after successful login
-      navigate('/orders/management');
+      console.log(data.role)
+      setRole(data.role)
+
+      if (data.role == 'rider') {
+        navigate('/delivery/rider/dashboard');
+      } else if (data.role == 'user') {
+        navigate('/admin/home');
+      } else if (data.role == 'admin') {
+        navigate('/admin/main/dashboard');
+      }
     } catch (error) {
       setError(error.message); // Display error message to user
     }

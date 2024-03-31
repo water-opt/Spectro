@@ -1,25 +1,7 @@
-// import React from "react";
-// import {params} from 'react-router-dom';
-
-// const Product = ({match, history}) => {
-
-//     const {productId} = match.params;
-//     console.log(productId);
-
-//     return (
-//         <section className='product-page my-4'>
-//             Inside Product Component
-//             {/* {console.log(productId)} */}
-//         </section>
-//     );
-// };
-
-// export default Product;
-
-
 import React , {useEffect}from "react";
 import {useDispatch, useSelector } from "react-redux";
 import { getProduct } from "../redux/actions/productActions";
+import axios from 'axios';
 import { useParams, useNavigate } from "react-router-dom"; // Import useParams hook
 
 const Product = () => {
@@ -36,6 +18,18 @@ const Product = () => {
     const handleGoBackBtn = () => {
         navigate(-1); // Go back one step in the history stack
     };
+
+    const addToCart = async (id) => {
+        axios.post('/api/cart', {
+            product: id
+        })
+        .then(response => {
+            console.log(response.data); // Handle successful response
+        })
+        .catch(error => {
+            console.error(error); // Handle errors
+        });
+    }
 
     return (
         <section className='product-page m-4'>
@@ -62,7 +56,7 @@ const Product = () => {
                         <p className='text-muted border-top py-2'> Status: {' '} {product.productQty <= 0? 'Out of Stock' : 'In Stock'}</p>
                         <p className='text-muted border-top py-2'> Description : {product.productDesc}</p>
                         <div className='d-grid gap-2 '>
-                            <button className='btn btn-dark btn-lg d-block mb-5 py-2 ' disabled={product.productQty <= 0}>Add to Cart</button>
+                            <button className='btn btn-dark btn-lg d-block mb-5 py-2 ' disabled={product.productQty <= 0} onClick={() => addToCart(product._id)}>Add to Cart</button>
                         </div>    
                     </div>
                 </div>

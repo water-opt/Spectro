@@ -1,5 +1,6 @@
 import React from "react";
 import { Link } from "react-router-dom";
+import axios from 'axios';
 //redux
 import { useDispatch } from "react-redux";
 import { deleteProduct } from "../redux/actions/productActions";
@@ -7,6 +8,20 @@ import { deleteProduct } from "../redux/actions/productActions";
 const Card = ({ product, adminPage = false, homePage = false }) => {
 
     const dispatch = useDispatch();
+
+    const addToCart = async (id) => {
+        axios.post('/api/cart', {
+            product: id
+        })
+        .then(response => {
+            alert('successfully added ..')
+            console.log(response.data); // Handle successful response
+        })
+        .catch(error => {
+            alert('failed to add ..')
+            console.error(error); // Handle errors
+        });
+    }
 
     return (
 
@@ -65,7 +80,7 @@ const Card = ({ product, adminPage = false, homePage = false }) => {
                                 <Link to={`/product/${product._id}`} type='button' className='btn btn-dark btn-sm me-2'>
                                     View Product
                                 </Link>
-                                <button type='button' className='btn btn-success btn-sm' disabled={product.productQty <= 0}>
+                                <button type='button' className='btn btn-success btn-sm' disabled={product.productQty <= 0} onClick={() => addToCart(product._id)}>
                                     <i className='fa-solid fa-cart-shopping pr-1'></i>
                                     Add to Cart
                                 </button>

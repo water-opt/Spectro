@@ -31,7 +31,7 @@ thead {
     background-color: #f1f1f1;
 }
 
-.modal {
+.VehiclesDash-modal {
     display: block;
     position: fixed;
     z-index: 1;

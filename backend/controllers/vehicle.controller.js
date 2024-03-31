@@ -5,20 +5,25 @@ const model = require('../models/DeliveryVehicle')
 const upload = require('../middleware/upload')
 
 const addVehicle = async (req, res) => {
-    const { rider, vehicleNumber } = req.body
-    
+    const { vehicleNumber } = req.body
+
+    console.log(vehicleNumber)
+
     if (!req.files['insurance'] || !req.files['license']) {
         return res.status(400).json('Insurance and license files are required.');
     }
-    
+
     const insuranceTitle = req.files['insurance'][0].filename
     const licenseTitle = req.files['license'][0].filename
 
+    console.log(insuranceTitle)
+    console.log(licenseTitle)
+
     try {
-        const Vehicle = await model.create({ name: rider, vehicleNumber: vehicleNumber, license: licenseTitle, insuarance: insuranceTitle })
-        res.status(400).json('success')
+        await model.create({ vehicleNumber: vehicleNumber, license: licenseTitle, insuarance: insuranceTitle })
+        res.status(200).json('success')
     } catch (errors) {
-        res.status(200).json(`error: ${errors}`)
+        res.status(400).json(`error: ${errors}`)
     }
 }
 

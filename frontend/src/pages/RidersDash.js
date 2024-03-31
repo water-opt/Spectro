@@ -113,7 +113,7 @@ const Vehicles = () => {
                 </div>
             </div>
             {selectedRider && (
-                <div className="modal">
+                <div className="VehiclesDash-modal">
                     <div className="modal-content">
                         <span className="close" onClick={handleCloseModal}>&times;</span>
                         <h2 style={{ fontWeight: '700', marginBottom: '15px' }}>{selectedRider.name}'s Details</h2>

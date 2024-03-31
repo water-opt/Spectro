@@ -35,6 +35,9 @@ const Header = () => {
                             <Link to='/admin/dashboard' className="nav-link" aria-current="page" ><i className='fas fa-home'></i> Dashboard</Link>
                         </li>
                         <li className="nav-item">
+                            <Link to='/cart' className="nav-link" aria-current="page" ><i className='fas fa-cart'></i> Cart</Link>
+                        </li>
+                        <li className="nav-item">
                             <Link to='#' className="nav-link" ><i className='fas fa-sign-out-alt'></i> Logout</Link>
                         </li>
 

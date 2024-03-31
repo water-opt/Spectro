@@ -1,57 +1,75 @@
+/* styles/Cart.css */
+
 .cart-container {
-    max-width: 800px;
-    margin: 0 auto;
-    padding: 20px;
+  margin: 20px auto;
+  padding: 20px;
+  border: 1px solid #ccc;
+  border-radius: 5px;
+  width: 80%;
+  max-width: 800px;
+  background-color: #fff;
+  box-shadow: 0 2px 4px rgba(0, 0, 0, 0.1);
 }
 
 .cart-table {
-    width: 100%;
-    border-collapse: collapse;
-    margin-bottom: 20px;
+  width: 100%;
+  border-collapse: collapse;
 }
 
-.cart-table th,
-.cart-table td {
-    padding: 10px;
-    text-align: left;
-    border-bottom: 1px solid #ddd;
-}
-
-.cart-table th {
-    background-color: #f2f2f2;
+.cart-table th, .cart-table td {
+  border-bottom: 1px solid #ddd;
+  padding: 10px;
+  text-align: left;
 }
 
 .item-info {
-    display: flex;
-    align-items: center;
+  display: flex;
+  align-items: center;
 }
 
 .item-info img {
-    width: 50px;
-    height: 50px;
-    margin-right: 10px;
+  width: 80px;
+  height: 80px;
+  margin-right: 20px;
+  border-radius: 5px;
 }
 
-.quantity {
-    display: flex;
-    align-items: center;
-}
+/* quantity.css */
 
 .quantity-button {
-    width: 30px;
-    height: 30px;
-    border-radius: 50%;
-    border: 1px solid #ccc;
-    background-color: #f8f8f8;
-    margin: 0 5px;
-    display: flex;
-    justify-content: center;
-    align-items: center;
+  border: 1px solid #ccc; /* Add a thin border */
+  padding: 8px 12px; /* Adjust padding for icons */
 }
 
-.total-price {
-    text-align: right;
-    font-weight: bold;
-    font-size: 1.2em;
-    padding-top: 10px;
+.quantity-decrease {
+  color: transparent; /* Hide default text color */
+}
+
+.quantity-decrease::after {
+  content: "\u2193"; /* Down arrow unicode character */
+  font-size: 14px; /* Adjust icon size */
+  /* other styles for the icon */
+}
+
+.quantity-increase {
+  color: transparent; /* Hide default text color */
+}
+
+.quantity-increase::after {
+  content: "\u2191"; /* Up arrow unicode character */
+  font-size: 14px; /* Adjust icon size */
+  /* ... other styles for the icon */
+}
+
+
+.delete-btn {
+  color: #c00; 
+  font-weight: bold;
+  background: none;
+  border: none;
+  cursor: pointer;
+}
+
+p {
+  margin: 10px 0;
 }

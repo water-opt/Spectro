@@ -16,6 +16,10 @@ const userSchema = new mongoose.Schema({
     address: {
         type: String,
         require: true
+    },
+    role: {
+        type: String,
+        default: "user"
     }
 }, {timestamp: true})
 

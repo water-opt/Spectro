@@ -1,5 +1,4 @@
 const Cart = require('../models/Cart');
-const { findByIdAndDelete } = require('../models/Order');
 
 // Fetch cart items for a user
 const getCartItems = async (req, res) => {
@@ -16,12 +15,12 @@ const getCartItems = async (req, res) => {
 // Update quantity for a cart item
 const updateCartItemQuantity = async (req, res) => {
     userId = req.session.userId
+    const { id } = req.params
+    const { quantity } = req.body
 
     try {
-        const { productId } = req.params
-        const { quantity } = req.body
         const cartItem = await Cart.findOneAndUpdate(
-            { user: userId, product: productId },
+            { user: userId, product: id },
             { quantity },
             { new: true }
         ).populate('product');
@@ -33,13 +32,15 @@ const updateCartItemQuantity = async (req, res) => {
 }
 //temporary created 
 const add = async (req, res) => {
-    const { user, product, quantity } = req.body
+    userId = req.session.userId
 
-    if (!user) {
+    const { product } = req.body
+
+    if (!userId) {
         return res.status(401).json({ error: 'Unauthorized. Please login to place an order.' })
     } else {
         try {
-            const cart = await Cart.create({ user: user, product: product, quantity: quantity })
+            const cart = await Cart.create({ user: userId, product: product })
             res.status(201).json(cart)
           } catch (errors) {
             console.log(errors)

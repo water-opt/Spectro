@@ -73,3 +73,15 @@ export const deleteProduct = productId => async dispatch => {
         dispatch({ type: SHOW_ERROR_MESSAGE, payload: err.response.data.errorMessage });
     }
 };
+
+export const fetchProducts = () => async (dispatch) => {
+    try {
+        const response = await axios.get('http://localhost:4000/api/products');
+        console.log(response.data); // Check the structure of response.data
+        dispatch({ type: GET_PRODUCTS, payload: response.data.products });
+        return response.data.products; // Return data for handling in the component
+    } catch (error) {
+        console.error('Error fetching products:', error);
+        throw error; // Rethrow the error for handling in the component
+    }
+};
