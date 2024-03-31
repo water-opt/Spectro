@@ -1,0 +1,75 @@
+/* styles/Cart.css */
+
+.cart-container {
+  margin: 20px auto;
+  padding: 20px;
+  border: 1px solid #ccc;
+  border-radius: 5px;
+  width: 80%;
+  max-width: 800px;
+  background-color: #fff;
+  box-shadow: 0 2px 4px rgba(0, 0, 0, 0.1);
+}
+
+.cart-table {
+  width: 100%;
+  border-collapse: collapse;
+}
+
+.cart-table th, .cart-table td {
+  border-bottom: 1px solid #ddd;
+  padding: 10px;
+  text-align: left;
+}
+
+.item-info {
+  display: flex;
+  align-items: center;
+}
+
+.item-info img {
+  width: 80px;
+  height: 80px;
+  margin-right: 20px;
+  border-radius: 5px;
+}
+
+/* quantity.css */
+
+.quantity-button {
+  border: 1px solid #ccc; /* Add a thin border */
+  padding: 8px 12px; /* Adjust padding for icons */
+}
+
+.quantity-decrease {
+  color: transparent; /* Hide default text color */
+}
+
+.quantity-decrease::after {
+  content: "\u2193"; /* Down arrow unicode character */
+  font-size: 14px; /* Adjust icon size */
+  /* other styles for the icon */
+}
+
+.quantity-increase {
+  color: transparent; /* Hide default text color */
+}
+
+.quantity-increase::after {
+  content: "\u2191"; /* Up arrow unicode character */
+  font-size: 14px; /* Adjust icon size */
+  /* ... other styles for the icon */
+}
+
+
+.delete-btn {
+  color: #c00; 
+  font-weight: bold;
+  background: none;
+  border: none;
+  cursor: pointer;
+}
+
+p {
+  margin: 10px 0;
+}

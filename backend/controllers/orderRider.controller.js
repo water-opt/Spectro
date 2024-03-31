@@ -1,0 +1,43 @@
+const model = require('../models/OrdersRider')
+const mongoose = require('mongoose')
+
+const addOrder = async (req, res) => {
+    const userId = req.session.userId
+    
+    const { order, user } = req.body
+
+    console.log(order)
+    console.log(userId)
+    console.log(user)
+
+    if (!userId) {
+        console.log('error please log in')
+    }
+
+    try {
+        await model.create({ rider: userId, order: order, user: user })
+        return res.status(200)
+    } catch (errors) {
+        console.log(`error: ${errors}`)
+        return res.status(400).json({error: 'An error occured'})
+    }
+} 
+
+const getAssignedOrders = async (req, res) => {
+    const userId = req.session.userId;
+
+    if (!userId) {
+        return res.status(401).json({ error: 'Please log in' });
+    }
+
+    try {
+        const orders = await model.find({ rider: userId }).populate('order').populate('rider').populate('user');
+        res.status(200).json( orders );
+    } catch (error) {
+        console.error('Error fetching orders:', error);
+        res.status(500).json({ error: 'Failed to fetch orders' });
+    }
+};
+
+
+module.exports = { addOrder, getAssignedOrders }
