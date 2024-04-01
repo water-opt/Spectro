@@ -71,6 +71,19 @@ const getAllOrders = async (req, res) => {
   }
 }
 
+const getPendingOrders = async (req, res) => {
+  const status = "pending";
+
+  try {
+    const orders = await model.find({ status: status }).populate('product').populate('user');
+    res.status(200).json(orders);
+  } catch (error) {
+    console.error(error);
+    res.status(500).json({ error: 'Internal Server Error' });
+  }
+};
+
+
 const removeOrder = async (req, res) => {
   const { id } = req.params
 
@@ -139,5 +152,6 @@ module.exports = {
   removeOrder,
   updateOrder,
   updateQuantity,
-  getAllOrders
+  getAllOrders,
+  getPendingOrders
 }

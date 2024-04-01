@@ -1,176 +1,169 @@
-/* Add to your DeliveryRiderDashboard.css file */
+.delivery-rider-dashboard {
+  display: flex;
+  flex-direction: column;
+  min-height: 100vh;
+  background-color: #f5f5f5; /* Adjust background color */
+  font-family: sans-serif;
+}
 
-/* Container */
-.DeliveryRiderMainDashboard-container {
-    display: flex;
-    flex-direction: column;
-    width: 100%;
-    min-height: 100vh;
-    background-color: #f5f5f5; /* Adjust background color */
-    padding: 20px;
-  }
-  
-  /* Header */
-  .header {
-    display: flex;
-    justify-content: space-between;
-    align-items: center;
-    padding: 20px;
-    background-color: #fff; /* Adjust header background color */
-    box-shadow: 0 1px 3px rgba(0, 0, 0, 0.1); /* Subtle shadow for header */
-  }
-  
-  .logo {
-    font-size: 24px;
-    font-weight: bold;
-  }
-  
-  .profile-info {
-    display: flex;
-    align-items: center;
-    font-size: 16px;
-  }
-  
-  .profile-info i {
-    margin-right: 10px;
-  }
-  
-  /* Navigation */
-  .navigation {
-    list-style: none;
-    padding: 0;
-    margin: 20px 0;
-  }
-  
-  .navigation-link {
-    display: flex;
-    align-items: center;
-    padding: 10px 15px;
-    border-radius: 5px;
-    color: #333;
-    text-decoration: none;
-    transition: background-color 0.2s ease-in-out;
-  }
-  
-  .navigation-link:hover {
-    background-color: #eee;
-  }
-  
-  .navigation-link.active {
-    background-color: #f0f0f0; /* Highlight active navigation link */
-  }
-  
-  .navigation-link i {
-    font-size: 18px;
-    margin-right: 10px;
-  }
-  
-  .badge {
-    display: inline-block;
-    padding: 3px 7px;
-    border-radius: 50%;
-    background-color: #f00; /* Adjust badge color (red for accepted orders) */
-    color: #fff;
-    font-size: 12px;
-    margin-left: 5px;
-  }
-  
-  /* Content */
-  .content {
-    flex: 1; /* Allow content to fill remaining space */
-    padding: 20px;
-  }
-  
-  /* Accepted Orders Section */
-  .content h2 {
-    font-size: 20px;
-    margin-bottom: 15px;
-  }
-  
-  .orders-list {
-    list-style: none;
-    padding: 0;
-  }
-  
-  .order-item {
-    display: flex;
-    justify-content: space-between;
-    align-items: center;
-    padding: 15px;
-    border-bottom: 1px solid #ddd;
-    margin-bottom: 10px;
-  }
-  
-  .order-details {
-    flex: 1;
-  }
-  
-  .order-details h3 {
-    font-size: 18px;
-    margin-bottom: 5px;
-  }
-  
-  .order-details p {
-    margin-bottom: 3px;
-  }
-  
-  .view-order-btn {
-    background-color: #4CAF50; /* Adjust button color */
-    color: #fff;
-    padding: 10px 15px;
-    border: none;
-    border-radius: 5px;
-    cursor: pointer;
-    transition: background-color 0.2s ease-in-out;
-  }
-  
-  .view-order-btn:hover {
-    background-color: #3e8e41; /* Adjust button hover color */
-  }
-  
-  /* No Orders Message */
-  .no-orders-message {
-    text-align: center;
-    font-size: 16px;
-    color: #999;
-  }
-  
- /* Responsive Design */
-@media (max-width: 768px) {
-    .header {
-      flex-direction: column;
-      align-items: center;
-    }
-  
-    .profile-info {
-      margin-top: 20px; /* Adjust spacing for smaller screens */
-    }
-  
-    .navigation {
-      /* Adjust navigation layout for smaller screens */
-      display: flex;
-      flex-direction: column;
-      align-items: center;
-      margin: 0; /* Remove top margin on smaller screens */
-    }
-  
-    .navigation-link {
-      width: 100%; /* Make navigation links full width on small screens */
-      text-align: center; /* Center text within navigation links */
-    }
-  
-    .content {
-      padding: 15px; /* Adjust content padding for smaller screens */
-    }
-  
-    /* Adjust order details layout for smaller screens (optional) */
-    .order-item {
-      flex-direction: column; /* Stack order details on top of each other */
-    }
-  
-    .order-details {
-      margin-bottom: 10px; /* Add spacing between order details */
-    }
-  }
-  
-  
+.header {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  padding: 20px;
+  background-color: #fff; /* Adjust header background color */
+  box-shadow: 0 1px 3px rgba(0, 0, 0, 0.1); /* Subtle shadow for header */
+}
+
+.logo {
+  font-size: 24px;
+  font-weight: bold;
+  color: #333;
+}
+
+.profile-info {
+  display: flex;
+  align-items: center;
+  font-size: 16px;
+  color: #333;
+}
+
+.profile-info i {
+  margin-right: 10px;
+}
+
+.navigation {
+  list-style: none;
+  padding: 0;
+  margin: 20px 0;
+  display: flex; /* Make navigation horizontal on larger screens */
+  flex-direction: row;
+  overflow-x: auto; /* Enable horizontal scrolling for navigation on smaller screens */
+  white-space: nowrap; /* Prevent wrapping of navigation items */
+  background-color: #eee; /* Add subtle background color for navigation */
+  border-bottom: 1px solid #ddd; /* Add border to separate navigation from content */
+}
+
+.navigation-link {
+  display: flex;
+  align-items: center;
+  padding: 10px 15px;
+  border-radius: 5px;
+  color: #333;
+  text-decoration: none;
+  transition: background-color 0.2s ease-in-out, color 0.2s ease-in-out; /* Add transition for hover effects */
+}
+
+.navigation-link:hover {
+  background-color: #ddd; /* Adjust hover background color */
+  color: #007bff; /* Adjust hover text color */
+}
+
+.navigation-link.active {
+  background-color: #f0f0f0; /* Highlight active navigation link */
+  color: #007bff; /* Adjust active text color */
+  font-weight: bold; /* Make active navigation link bolder */
+}
+
+.navigation-link i {
+  font-size: 18px;
+  margin-right: 10px;
+}
+
+.badge {
+  display: inline-block;
+  padding: 3px 7px;
+  border-radius: 50%;
+  background-color: #f00; /* Adjust badge color (red for accepted orders) */
+  color: #fff;
+  font-size: 12px;
+  margin-left: 5px;
+}
+
+/* Content */
+.content {
+  flex: 1; /* Allow content to fill remaining space */
+  padding: 20px;
+}
+
+/* Accepted Orders Section */
+.content h2 {
+  font-size: 20px;
+  margin-bottom: 15px;
+  color: #333; /* Adjust heading color */
+}
+
+.orders-list {
+  list-style: none;
+  padding: 0;
+}
+
+.order-item {
+  display: grid; /* Use grid layout for more flexibility */
+  grid-template-columns: 1fr 80px; /* Define grid columns */
+  padding: 20px; /* Adjust padding */
+  border-radius: 5px; /* Rounded corners */
+  background-color: #fff; /* Background color */
+  box-shadow: 0 1px 3px rgba(0, 0, 0, 0.1); /* Subtle shadow */
+  transition: background-color 0.2s ease-in-out; /* Transition on hover */
+  cursor: pointer; /* Maintain clickable behavior */
+  margin-bottom: 10px;
+}
+
+.order-item:hover {
+  background-color: #f5f5f5; /* Adjust hover background color */
+}
+
+.order-details {
+  display: flex; /* Allow for inline elements */
+  flex-direction: column; /* Stack content vertically */
+  justify-content: space-between; /* Align content vertically */
+}
+
+.order-details h3 {
+  font-size: 18px;
+  margin-bottom: 5px;
+  color: #333; /* Text color */
+}
+
+.order-details p {
+  margin-bottom: 3px;
+  color: #666; /* Adjust text color for details */
+}
+
+.order-status {
+  display: inline-block;
+  padding: 5px 10px;
+  border-radius: 5px;
+  font-size: 12px;
+  text-align: center; /* Center text within status */
+  color: #fff; /* Text color for status */
+  background-color: #28a745; /* Green for accepted orders (adjust for others) */
+  margin-bottom: 5px; /* Add spacing after status */
+}
+
+.order-details i {
+  font-size: 24px; /* Larger icon size */
+  color: #ccc; /* Adjust icon color */
+  opacity: 0.7; /* Slightly transparent */
+  transition: opacity 0.2s ease-in-out; /* Transition on hover */
+}
+
+.order-item:hover .order-details i {
+  opacity: 1; /* Full opacity on hover */
+}
+
+.order-actions {
+  display: flex; /* Align actions horizontally */
+  justify-content: space-between; /* Space actions evenly */
+}
+
+.order-actions a {
+  text-decoration: none; /* Remove underline from links */
+  color: #333; /* Text color for actions */
+  transition: color 0.2s ease-in-out; /* Transition on hover */
+}
+
+.order-actions a:hover {
+  color: #007bff; /* Adjust hover color for actions */
+}

@@ -12,7 +12,7 @@ const OrdersDelivery = () => {
     useEffect(() => {
         const fetchOrders = async () => {
             try {
-                const response = await axios.get('/api/orders/all');
+                const response = await axios.get('/api/orders/pending');
                 setOrders(response.data);
                 setLoading(false);
             } catch (error) {
@@ -27,12 +27,18 @@ const OrdersDelivery = () => {
     const [acceptedOrders, setAcceptedOrders] = useState(new Set());
 
     const addToDelivery = async (id, user) => {
+        const updates = { status: "processing" }
+
         try {
+            await axios.put(`/api/orders/${id}`, updates);
+            console.log('Order status updated to processing:', id);
+            
             await axios.post('/api/order/rider', {
                 order: id,
                 user: user
             })
-            console.log('Order Accepted:', id);
+            console.log('Order added to delivery:', id);
+
             setAcceptedOrders(new Set([...acceptedOrders, id]));
         } catch (errors) {
             console.error('Error accepting the order:', error)
