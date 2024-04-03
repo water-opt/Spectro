@@ -91,6 +91,7 @@ const Vehicles = () => {
                 <div className="vertical-line" style={{ borderTop: '2px solid #D3D3D3', width: '94%', margin: '0 auto' }}></div>
                 <div style={{ marginBottom: '100px' }}>
                     <div style={{ marginLeft: '400px', marginRight: '50px', marginTop: '100px' }}>
+                        {loading && <div>Loading ...</div>}
                         <table className="styled-table">
                             <thead>
                                 <tr>

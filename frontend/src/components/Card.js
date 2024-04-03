@@ -9,19 +9,30 @@ const Card = ({ product, adminPage = false, homePage = false }) => {
 
     const dispatch = useDispatch();
 
-    const addToCart = async (id) => {
-        axios.post('/api/cart', {
-            product: id
-        })
-        .then(response => {
-            alert('successfully added ..')
-            console.log(response.data); // Handle successful response
-        })
-        .catch(error => {
-            alert('failed to add ..')
-            console.error(error); // Handle errors
-        });
-    }
+    // const addToCart = async (id) => {
+    //     axios.post('/api/cart', {
+    //         product: id
+    //     })
+    //     .then(response => {
+    //         alert('successfully added ..')
+    //         console.log(response.data); // Handle successful response
+    //     })
+    //     .catch(error => {
+    //         alert('failed to add ..')
+    //         console.error(error); // Handle errors
+    //     });
+    // }
+
+    const addToCart = async (productId, quantity) => {
+        try {
+          const response = await axios.post('/api/cart', { productId, quantity });
+          console.log('Response data:', response.data);
+          // Handle success, e.g., show a success message or update the cart state
+        } catch (error) {
+          console.error('Error adding to cart:', error);
+          // Handle error, e.g., show an error message
+        }
+      };
 
     return (
 
@@ -80,7 +91,7 @@ const Card = ({ product, adminPage = false, homePage = false }) => {
                                 <Link to={`/product/${product._id}`} type='button' className='btn btn-dark btn-sm me-2'>
                                     View Product
                                 </Link>
-                                <button type='button' className='btn btn-success btn-sm' disabled={product.productQty <= 0} onClick={() => addToCart(product._id)}>
+                                <button type='button' className='btn btn-success btn-sm' disabled={product.productQty <= 0} onClick={() => addToCart(product._id, 1)}>
                                     <i className='fa-solid fa-cart-shopping pr-1'></i>
                                     Add to Cart
                                 </button>

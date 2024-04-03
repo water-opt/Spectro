@@ -33,11 +33,11 @@ const LoginPage = () => {
       console.log(data.role)
       setRole(data.role)
 
-      if (data.role == 'rider') {
+      if (data.role === 'rider') {
         navigate('/delivery/rider/dashboard');
-      } else if (data.role == 'user') {
+      } else if (data.role === 'user') {
         navigate('/admin/home');
-      } else if (data.role == 'admin') {
+      } else if (data.role === 'admin') {
         navigate('/admin/main/dashboard');
       }
     } catch (error) {

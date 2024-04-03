@@ -8,8 +8,6 @@ const Invoice = () => {
     const [order, setOrder] = useState(null);
     const [loading, setLoading] = useState(false);
 
-    console.log(orderId)
-
     useEffect(() => {
         const fetchOrder = async () => {
             setLoading(true);
@@ -26,15 +24,15 @@ const Invoice = () => {
         fetchOrder();
     }, [orderId]);
 
+    const handlePrint = () => {
+        window.print();
+    };
+
     return (
         <div className="invoice-container">
             {loading && <p>Loading...</p>}
             {order && (
                 <>
-                    <div className="invoice-header">
-                        <h2>Invoice</h2>
-                        <p>Invoice Number: #{order._id}</p>
-                    </div>
                     <div className="invoice-details">
                         <div className="invoice-details-left">
                             <h3>Bill From</h3>
@@ -46,8 +44,9 @@ const Invoice = () => {
                         <div className="invoice-details-right">
                             <h3>Bill To</h3>
                             <p>{order.user.username}</p>
-                            <p>Email: {order.user.email}</p>
-                            <p>{order.user.address}</p>
+                            <p><strong>Email:</strong> {order.user.email}</p>
+                            <p><strong>Contact:</strong> {order.user.mobile}</p>
+                            <p><strong>Address:</strong> {order.user.address}</p>
                         </div>
                     </div>
                     <table className="invoice-table">
@@ -59,20 +58,22 @@ const Invoice = () => {
                                 <th>Total</th>
                             </tr>
                         </thead>
-                        <tbody> 
-                            {order && (
-                                <tr key={order._id}>
-                                    <td>{order.product.productName}</td>
-                                    <td>{order.quantity}</td>
-                                    <td>${order.product.productPrice.toFixed(2)}</td>
-                                    <td>${(order.quantity * order.product.productPrice).toFixed(2)}</td>
+                        <tbody>
+                            {order.orderItems.map((item, index) => (
+                                <tr key={index}>
+                                    <td>{item.product.productName}</td>
+                                    <td>{item.quantity}</td>
+                                    <td>${item.product.productPrice}</td>
+                                    <td>${(item.quantity * item.product.productPrice).toFixed(2)}</td>
                                 </tr>
-                            )}
+                            ))}
                         </tbody>
                     </table>
                     <div className="invoice-footer">
+                        <span style={{ position: 'absolute', left: '175px', marginTop: '10px' }}>Date: {new Date(order.createdAt).toLocaleDateString()}</span>
                         <p>Subtotal: ${order.total.toFixed(2)}</p>
                     </div>
+                    <button onClick={handlePrint}>Print</button>
                 </>
             )}
         </div>

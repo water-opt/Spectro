@@ -9,7 +9,7 @@
 }
 
 .invoice-header {
-    text-align: center;
+    /* text-align: center; */
     margin-bottom: 20px;
 }
 
@@ -42,3 +42,15 @@
     padding-top: 10px;
     margin-top: 20px;
 }
+
+@media print {
+    header {
+        display: none;
+    }
+
+    .invoice-container{
+        display: block;
+    }
+}
+
+

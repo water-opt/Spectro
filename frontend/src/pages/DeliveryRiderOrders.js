@@ -2,26 +2,34 @@ import { useState, useEffect } from 'react'
 import axios from 'axios'
 import '../styles/OrderAccept.css'
 import { useNavigate } from 'react-router-dom'
+import { useRole } from '../components/RoleContext'
 
 const OrdersDelivery = () => {
     const [orders, setOrders] = useState(null)
     const [isLoading, setLoading] = useState(true)
     const [error, setError] = useState(false)
+    const { role } = useRole()
     const navigate = useNavigate()
 
     useEffect(() => {
-        const fetchOrders = async () => {
-            try {
-                const response = await axios.get('/api/orders/pending');
-                setOrders(response.data);
-                setLoading(false);
-            } catch (error) {
-                setError(true);
-                setLoading(false);
-            }
-        };
-
-        fetchOrders();
+        if (role !== 'rider') {
+            navigate('/login');
+        } else {
+            axios.get('/api/orders/pending')
+                .then(response => {
+                    if (response.status !== 200) {
+                        throw new Error('Failed to fetch data');
+                    }
+                    setOrders(response.data);
+                })
+                .catch(error => {
+                    console.error('Error fetching data:', error);
+                    setError(true);
+                })
+                .finally(() => {
+                    setLoading(false);
+                });
+        }
     }, [])
 
     const [acceptedOrders, setAcceptedOrders] = useState(new Set());

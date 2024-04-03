@@ -66,6 +66,7 @@ const loginUser = async (req, res) => {
     } else if (isMatchUser) {
       req.session.userId = user._id;
       req.session.role = user.role;
+      req.session.address = user.address;
       console.log(`Login successful | User: ${user._id}`);
       res.json({ message: 'Login successful', role: user.role });
       console.log(user.role)
@@ -76,6 +77,16 @@ const loginUser = async (req, res) => {
   }
 };
 
+const LogoutUser = async (req, res) => {
+  req.session.destroy((err) => {
+    if (err) {
+      return res.status(500).json({ message: 'Failed to logout' });
+    }
+
+    res.json({ message: 'Logout successful' });
+  });
+};
 
 
-module.exports = { registerUser, loginUser };
+
+module.exports = { registerUser, loginUser, LogoutUser };

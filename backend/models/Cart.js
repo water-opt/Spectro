@@ -6,16 +6,26 @@ const cartSchema = new mongoose.Schema({
         ref: 'User',
         require: true
     },
-    product: {
-        type: mongoose.SchemaTypes.ObjectId,
-        ref: 'Product',
-        require: true
-    },
-    quantity: {
+    orderItems: [
+        {
+          product: {
+            type: mongoose.Schema.Types.ObjectId,
+            ref: 'Product',
+            required: true,
+          },
+          quantity: { type: Number, required: true },
+          total: { type: Number, required: true },
+        },
+    ],
+    total: {
         type: Number,
-        require: true,
-        default: 1
+        required: true
     }
+     // product: {
+    //     type: mongoose.SchemaTypes.ObjectId,
+    //     ref: 'Product',
+    //     require: true
+    // },
 })
 
 module.exports = mongoose.model('Cart', cartSchema)
