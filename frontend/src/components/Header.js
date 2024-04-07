@@ -34,7 +34,7 @@ const Header = () => {
         <header id='header' style={{ backgroundColor: '#f8f9fa', boxShadow: '0 2px 4px rgba(0,0,0,0.1)', padding: '10px 0' }}>
             <nav className="navbar navbar-expand-lg bg-body-tertiary">
                 <div className="container-fluid">
-                    <Link to='/admin/home' className="navbar-brand" style={{ fontWeight: 'bold', color: '#333' }}>{contentType}</Link>
+                    <Link to='/' className="navbar-brand" style={{ fontWeight: 'bold', color: '#333' }}>{contentType}</Link>
                     <button className="navbar-toggler" type="button" data-bs-toggle="collapse" data-bs-target="#navbarTogglerDemo02" aria-controls="navbarTogglerDemo02" aria-expanded="false" aria-label="Toggle navigation">
                         <span className="navbar-toggler-icon"></span>
                     </button>
@@ -47,10 +47,10 @@ const Header = () => {
                             {role === 'user' && 
                             <>
                                 <li className="nav-item">
-                                    <Link to='/admin/home' className="nav-link" aria-current="page" style={{ color: '#333' }}><i className='fas fa-home'></i> Home</Link>
+                                    <Link to='/home' className="nav-link" aria-current="page" style={{ color: '#333' }}><i className='fas fa-home'></i> Home</Link>
                                 </li>
                                 <li className="nav-item">
-                                    <Link to='/admin/shop' className="nav-link" aria-current="page" style={{ color: '#333' }}><i className='fas fa-shopping-bag'></i> Shop</Link>
+                                    <Link to='/shop' className="nav-link" aria-current="page" style={{ color: '#333' }}><i className='fas fa-shopping-bag'></i> Shop</Link>
                                 </li>
                                 <li className="nav-item">
                                     <Link to='/cart' className="nav-link" aria-current="page" style={{ color: '#333' }}><i className='fas fa-shopping-cart'></i> Cart</Link>

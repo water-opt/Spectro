@@ -15,15 +15,16 @@ import Orders from '../pages/OrdersPage';
 import OrderDet from '../pages/OrderDetails';
 import RiderDet from '../pages/RiderDet';
 import Invoice from '../pages/Invoice';
-import Vehicle from '../pages/VehicleDetails'; // TODO: please fix errors here. This component conflicts with with Admin Home.
-import Rider from '../pages/RiderDetails'; // TODO: please fix errors here. This component conflicts with Admin Home.
-import VehicleDash from '../pages/VehiclesDash'; // TODO: please fix errors here. This component conflicts with Product Management Admin Dashboard.
-import RiderDash from '../pages/RidersDash'; // TODO: please fix errors here. This component conflicts with Product Management Admin Dashboard.
+import Vehicle from '../pages/VehicleDetails';
+import Rider from '../pages/RiderDetails'; 
+import VehicleDash from '../pages/VehiclesDash'; 
+import RiderDash from '../pages/RidersDash'; 
 import OrderAccept from '../pages/DeliveryRiderOrders';
 import OrdersAccepted from '../pages/Status'
 import MainAdminDashboard from '../pages/AdminMainDashboard'
 import DeliveryAdminMain from '../pages/DeliveryAdminMain'
 import DeliveryRiderMainDashboard from '../pages/DeliveryRiderMainDashboard'
+import Footer from './Footer';
 
 const App = () => {
 
@@ -34,8 +35,8 @@ const App = () => {
                 <Routes>
 
                     <Route exact path='/admin/dashboard' Component={AdminDashboard}/>
-                    <Route exact path='/admin/home' Component={Home}/>
-                    <Route exact path='/admin/shop' Component={Shop}/>
+                    <Route exact path='/' Component={Home}/>
+                    <Route exact path='/shop' Component={Shop}/>
 
                     {/* Routes for products */}
                     <Route exact path='/product/:productId' Component={Product}/>
@@ -66,6 +67,7 @@ const App = () => {
                     <Route path='/admin/main/dashboard' element={<MainAdminDashboard />} />
                 </Routes>
             </main>
+            <Footer/>
         </BrowserRouter>
     );
 };

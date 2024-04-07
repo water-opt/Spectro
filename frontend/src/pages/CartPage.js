@@ -145,6 +145,8 @@ const Cart = () => {
                     <Link to='/admin/shop'><button style={{ marginTop: '100px', marginLeft: '90px' }}>Cancel</button></Link>
                 </div>
             )}
+
+           <br/> <br/> <br/>
         </div>
     );
 };
