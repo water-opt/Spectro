@@ -36,7 +36,7 @@ const LoginPage = () => {
       if (data.role === 'rider') {
         navigate('/delivery/rider/dashboard');
       } else if (data.role === 'user') {
-        navigate('/admin/home');
+        navigate('/');
       } else if (data.role === 'admin') {
         navigate('/admin/main/dashboard');
       }
