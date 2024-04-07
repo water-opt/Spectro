@@ -66,6 +66,10 @@ const loginUser = async (req, res) => {
     } else if (isMatchUser) {
       req.session.userId = user._id;
       req.session.role = user.role;
+<<<<<<< HEAD
+=======
+      req.session.address = user.address;
+>>>>>>> 4811b4f248ab8a21edc86372af783c9cae638d54
       console.log(`Login successful | User: ${user._id}`);
       res.json({ message: 'Login successful', role: user.role });
       console.log(user.role)
@@ -76,6 +80,22 @@ const loginUser = async (req, res) => {
   }
 };
 
+<<<<<<< HEAD
 
 
 module.exports = { registerUser, loginUser };
+=======
+const LogoutUser = async (req, res) => {
+  req.session.destroy((err) => {
+    if (err) {
+      return res.status(500).json({ message: 'Failed to logout' });
+    }
+
+    res.json({ message: 'Logout successful' });
+  });
+};
+
+
+
+module.exports = { registerUser, loginUser, LogoutUser };
+>>>>>>> 4811b4f248ab8a21edc86372af783c9cae638d54

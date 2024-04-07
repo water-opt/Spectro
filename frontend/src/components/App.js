@@ -23,8 +23,12 @@ import OrderAccept from '../pages/DeliveryRiderOrders';
 import OrdersAccepted from '../pages/Status'
 import MainAdminDashboard from '../pages/AdminMainDashboard'
 import DeliveryAdminMain from '../pages/DeliveryAdminMain'
+<<<<<<< HEAD
 import DeliveryRiderMainDashboard from '../pages/DeliveryRiderMainDashboard';
 import Footer from './Footer';
+=======
+import DeliveryRiderMainDashboard from '../pages/DeliveryRiderMainDashboard'
+>>>>>>> 4811b4f248ab8a21edc86372af783c9cae638d54
 
 const App = () => {
 
@@ -60,14 +64,21 @@ const App = () => {
                     <Route path='/riders/dashboard' element={<RiderDash/>}/> 
                     <Route path='/riders/:id' element={<RiderDet/>}/>
                     <Route path='/delivery/orders' element={<OrderAccept />} />
+<<<<<<< HEAD
                     <Route path='/delivery/orders/accepted' element={<OrdersAccepted />} />
+=======
+                    <Route path='/riders/orders/:id' element={<OrdersAccepted />} />
+>>>>>>> 4811b4f248ab8a21edc86372af783c9cae638d54
                     <Route path='/delivery/main/dashboard' element={<DeliveryAdminMain />} />
                     <Route path='/delivery/rider/dashboard' element={<DeliveryRiderMainDashboard />} />
 
                     <Route path='/admin/main/dashboard' element={<MainAdminDashboard />} />
                 </Routes>
             </main>
+<<<<<<< HEAD
             <Footer/>
+=======
+>>>>>>> 4811b4f248ab8a21edc86372af783c9cae638d54
         </BrowserRouter>
     );
 };

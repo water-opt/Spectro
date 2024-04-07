@@ -33,11 +33,19 @@ const LoginPage = () => {
       console.log(data.role)
       setRole(data.role)
 
+<<<<<<< HEAD
       if (data.role == 'rider') {
         navigate('/delivery/rider/dashboard');
       } else if (data.role == 'user') {
         navigate('/admin/home');
       } else if (data.role == 'admin') {
+=======
+      if (data.role === 'rider') {
+        navigate('/delivery/rider/dashboard');
+      } else if (data.role === 'user') {
+        navigate('/admin/home');
+      } else if (data.role === 'admin') {
+>>>>>>> 4811b4f248ab8a21edc86372af783c9cae638d54
         navigate('/admin/main/dashboard');
       }
     } catch (error) {

@@ -2,6 +2,10 @@
     position: relative;
     height: 700px; /* Adjust the height as needed */
     overflow: hidden;
+<<<<<<< HEAD
+=======
+    width: 100%;
+>>>>>>> 4811b4f248ab8a21edc86372af783c9cae638d54
 }
 
 .banner-img {
@@ -92,6 +96,10 @@
     width: 400px;
     height: 300px;
     position: absolute;
+<<<<<<< HEAD
+=======
+    left: 200px;
+>>>>>>> 4811b4f248ab8a21edc86372af783c9cae638d54
     bottom: -10px;
     z-index: 2;
     right: 2%;
