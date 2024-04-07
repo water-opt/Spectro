@@ -23,7 +23,8 @@ import OrderAccept from '../pages/DeliveryRiderOrders';
 import OrdersAccepted from '../pages/Status'
 import MainAdminDashboard from '../pages/AdminMainDashboard'
 import DeliveryAdminMain from '../pages/DeliveryAdminMain'
-import DeliveryRiderMainDashboard from '../pages/DeliveryRiderMainDashboard'
+import DeliveryRiderMainDashboard from '../pages/DeliveryRiderMainDashboard';
+import Footer from './Footer';
 
 const App = () => {
 
@@ -66,6 +67,7 @@ const App = () => {
                     <Route path='/admin/main/dashboard' element={<MainAdminDashboard />} />
                 </Routes>
             </main>
+            <Footer/>
         </BrowserRouter>
     );
 };
