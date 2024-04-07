@@ -9,11 +9,7 @@
 }
 
 .invoice-header {
-<<<<<<< HEAD
-    text-align: center;
-=======
     /* text-align: center; */
->>>>>>> 4811b4f248ab8a21edc86372af783c9cae638d54
     margin-bottom: 20px;
 }
 
@@ -46,8 +42,6 @@
     padding-top: 10px;
     margin-top: 20px;
 }
-<<<<<<< HEAD
-=======
 
 @media print {
     header {
@@ -60,4 +54,3 @@
 }
 
 
->>>>>>> 4811b4f248ab8a21edc86372af783c9cae638d54

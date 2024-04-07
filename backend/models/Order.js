@@ -1,30 +1,3 @@
-<<<<<<< HEAD
-const mongoose = require('mongoose')
-
-const orderSchema = new mongoose.Schema({
-    user: {
-        type: mongoose.SchemaTypes.ObjectId,
-        ref: "User",
-        require: true
-    },
-    product: {
-        type: mongoose.SchemaTypes.ObjectId,
-        ref: 'Product',
-        require: true
-    },
-    quantity: {
-        type: Number,
-        require: true,
-        default: 1
-    },
-    total: {
-        type: Number,
-        require: true
-    },
-    address: {
-        type: String,
-        require: true
-=======
 const mongoose = require('mongoose');
 
 const orderSchema = new mongoose.Schema({
@@ -51,7 +24,6 @@ const orderSchema = new mongoose.Schema({
     address: {
         type: String,
         required: true
->>>>>>> 4811b4f248ab8a21edc86372af783c9cae638d54
     },
     status: {
         type: String,
@@ -61,12 +33,6 @@ const orderSchema = new mongoose.Schema({
         type: Date,
         default: Date.now 
     }
-<<<<<<< HEAD
-})
-
-module.exports = mongoose.model('Order', orderSchema)
-=======
 });
 
 module.exports = mongoose.model('Order', orderSchema);
->>>>>>> 4811b4f248ab8a21edc86372af783c9cae638d54

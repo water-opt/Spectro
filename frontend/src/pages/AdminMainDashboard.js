@@ -3,27 +3,18 @@ import { Link, useNavigate } from 'react-router-dom';
 import '../styles/MainDash.css';
 import axios from 'axios';
 import { useRole } from '../components/RoleContext';
-<<<<<<< HEAD
-=======
 import Chart from 'chart.js/auto';
->>>>>>> 4811b4f248ab8a21edc86372af783c9cae638d54
 
 const MainAdminDashboard = () => {
     const [orders, setOrders] = useState(null);
     const [isLoading, setLoading] = useState(true);
     const [errors, setErrors] = useState(false);
     const [isSidePanelOpen, setSidePanelOpen] = useState(false);
-<<<<<<< HEAD
-    const { role } = useRole();
-    const sidePanelRef = useRef(null);
-    const navigate = useNavigate();
-=======
     const [selectedOrder, setSelectedOrder] = useState(null);
     const { role } = useRole();
     const sidePanelRef = useRef(null);
     const navigate = useNavigate();
     const chartRef = useRef(null);
->>>>>>> 4811b4f248ab8a21edc86372af783c9cae638d54
 
     useEffect(() => {
         if (role !== 'admin') {
@@ -58,8 +49,6 @@ const MainAdminDashboard = () => {
         };
     }, [role, navigate]);
 
-<<<<<<< HEAD
-=======
     useEffect(() => {
         if (orders) {
             const orderDates = orders.map(order => new Date(order.createdAt).toLocaleDateString());
@@ -100,7 +89,6 @@ const MainAdminDashboard = () => {
         }
     }, [orders]);    
 
->>>>>>> 4811b4f248ab8a21edc86372af783c9cae638d54
     const toggleSidePanel = () => {
         setSidePanelOpen(!isSidePanelOpen);
     };
@@ -120,14 +108,6 @@ const MainAdminDashboard = () => {
         }
     }
 
-<<<<<<< HEAD
-    const totalOrderAmount = orders ? orders.reduce((total, order) => total + order.total, 0) : 0;
-
-    return (
-        <div className='container-dashboard'>
-            <div className='upper-container' style={{ marginTop: '50px' }}>
-                <div className='upper-left-container' style={{ display: 'flex', justifyContent: 'space-between' }}>
-=======
     const totalOrderAmount = orders ? orders.reduce((total, order) => total + order.total, 0).toLocaleString() : '0';
     const pendingOrdersCount = orders ? orders.filter(order => order.status === 'pending').length : 0;
     const processingOrdersCount = orders ? orders.filter(order => order.status === 'processing').length : 0;
@@ -142,33 +122,12 @@ const MainAdminDashboard = () => {
         <div className='container-dashboard' style={{ marginTop: '-50px' }}>
             <div className='upper-container' style={{ marginTop: '50px' }}>
                 <div className='upper-left-container' style={{ display: 'flex', justifyContent: 'space-between', marginTop: '-190px' }}>
->>>>>>> 4811b4f248ab8a21edc86372af783c9cae638d54
                     <div className='small-container enhanced' style={{ backgroundColor: '#FFFFFF', width: '150px', height: '150px', cursor: 'pointer' }} onClick={() => console.log('Total Sales Clicked')}>
                         <p style={{ paddingTop: '10px', paddingLeft: '10px', color: '#333' }}><strong>Total Sales</strong></p>
                         <p style={{ textAlign: 'center', marginTop: '35px', fontSize: '18px', color: '#007bff' }}><strong>LKR {totalOrderAmount}</strong></p>
                     </div>
                     <div className='small-container enhanced' style={{ backgroundColor: '#FFFFFF', width: '150px', height: '150px', cursor: 'pointer' }} onClick={() => console.log('Pending Orders Clicked')}>
                         <p style={{ paddingTop: '10px', paddingLeft: '10px', color: '#333' }}><strong>Pending,</strong></p>
-<<<<<<< HEAD
-                        <p style={{ textAlign: 'center', marginTop: '35px', fontSize: '18px', color: '#ffc107' }}><strong># (Count)</strong></p>
-                    </div>
-                    <div className='small-container enhanced' style={{ backgroundColor: '#FFFFFF', width: '150px', height: '150px', cursor: 'pointer' }} onClick={() => console.log('Processing Orders Clicked')}>
-                        <p style={{ paddingTop: '10px', paddingLeft: '10px', color: '#333' }}><strong>Processing,</strong></p>
-                        <p style={{ textAlign: 'center', marginTop: '35px', fontSize: '18px', color: '#28a745' }}><strong># (Count)</strong></p>
-                    </div>
-                    <div className='small-container enhanced' style={{ backgroundColor: '#FFFFFF', width: '150px', height: '150px', cursor: 'pointer' }} onClick={() => console.log('Cancelled Orders Clicked')}>
-                        <p style={{ paddingTop: '10px', paddingLeft: '10px', color: '#333' }}><strong>Cancelled,</strong></p>
-                        <p style={{ textAlign: 'center', marginTop: '35px', fontSize: '18px', color: '#dc3545' }}><strong># (Count)</strong></p>
-                    </div>
-                </div>
-                <div className='upper-right-container'>
-                    Upper Right Container
-                </div>
-            </div>
-            <div className='bottom-container'>
-                <div className='bottom-left-container'>
-                    Bottom Left Container
-=======
                         <p style={{ textAlign: 'center', marginTop: '35px', fontSize: '18px', color: '#ffc107' }}><strong>{pendingOrdersCount}</strong></p>
                     </div>
                     <div className='small-container enhanced' style={{ backgroundColor: '#FFFFFF', width: '150px', height: '150px', cursor: 'pointer' }} onClick={() => console.log('Processing Orders Clicked')}>
@@ -206,7 +165,6 @@ const MainAdminDashboard = () => {
                             </div>
                         </div>
                     )}
->>>>>>> 4811b4f248ab8a21edc86372af783c9cae638d54
                 </div>
                 <div className='bottom-right-container'>
                     {isLoading ? (
@@ -225,13 +183,8 @@ const MainAdminDashboard = () => {
                             </thead>
                             <tbody>
                                 {orders && orders.map((order) => (
-<<<<<<< HEAD
-                                    <tr key={order._id}>
-                                        <td>#{order._id}</td>
-=======
                                     <tr key={order._id} onClick={() => handleOrderClick(order._id)}>
                                         <td># {order._id}</td>
->>>>>>> 4811b4f248ab8a21edc86372af783c9cae638d54
                                         <td>{new Date(order.createdAt).toLocaleDateString()}</td>
                                         <td>
                                             <span
@@ -250,19 +203,6 @@ const MainAdminDashboard = () => {
             </div>
             <div ref={sidePanelRef} className={`side-panel ${isSidePanelOpen ? 'open' : ''}`}>
                 <div className='title-container'>
-<<<<<<< HEAD
-                    <p>Admin Menu</p>
-                </div>
-                <div className='options-container'>
-                    <Link to='/delivery/main/dashboard' className='option'>Delivery Options</Link>
-                    <Link to='/admin/dashboard' className='option'>Product Options</Link>
-                    <Link to='#' className='option'>Supplier Requests</Link>
-                </div>
-            </div>
-            <button className='toggle-button' onClick={toggleSidePanel}>
-                {isSidePanelOpen ? 'Close Side Panel' : 'Open Side Panel'}
-            </button>
-=======
                     <p><strong>Admin Menu</strong></p>
                 </div>
                 <div className='options-container'>
@@ -276,7 +216,6 @@ const MainAdminDashboard = () => {
                     <i className={`fas ${isSidePanelOpen ? 'fa-times' : 'fa-bars'}`}></i>
                 </button>
             )}
->>>>>>> 4811b4f248ab8a21edc86372af783c9cae638d54
         </div>
     );
 };

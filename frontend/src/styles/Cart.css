@@ -1,12 +1,5 @@
 /* styles/Cart.css */
 
-<<<<<<< HEAD
-.cart-container {
-  margin: 20px auto;
-  padding: 20px;
-  border: 1px solid #ccc;
-  border-radius: 5px;
-=======
 /* Typography */
 CartPage-body {
   font-family: Arial, sans-serif; /* Update font stack */
@@ -17,7 +10,6 @@ CartPage-body {
   padding: 1.5rem;
   border: 1px solid #e9ecef;
   border-radius: 4px;
->>>>>>> 4811b4f248ab8a21edc86372af783c9cae638d54
   width: 80%;
   max-width: 800px;
   background-color: #fff;
@@ -29,16 +21,10 @@ CartPage-body {
   border-collapse: collapse;
 }
 
-<<<<<<< HEAD
-.cart-table th, .cart-table td {
-  border-bottom: 1px solid #ddd;
-  padding: 10px;
-=======
 .cart-table th,
 .cart-table td {
   border-bottom: 1px solid #e9ecef;
   padding: 1rem;
->>>>>>> 4811b4f248ab8a21edc86372af783c9cae638d54
   text-align: left;
 }
 
@@ -51,50 +37,6 @@ CartPage-body {
   width: 80px;
   height: 80px;
   margin-right: 20px;
-<<<<<<< HEAD
-  border-radius: 5px;
-}
-
-/* quantity.css */
-
-.quantity-button {
-  border: 1px solid #ccc; /* Add a thin border */
-  padding: 8px 12px; /* Adjust padding for icons */
-}
-
-.quantity-decrease {
-  color: transparent; /* Hide default text color */
-}
-
-.quantity-decrease::after {
-  content: "\u2193"; /* Down arrow unicode character */
-  font-size: 14px; /* Adjust icon size */
-  /* other styles for the icon */
-}
-
-.quantity-increase {
-  color: transparent; /* Hide default text color */
-}
-
-.quantity-increase::after {
-  content: "\u2191"; /* Up arrow unicode character */
-  font-size: 14px; /* Adjust icon size */
-  /* ... other styles for the icon */
-}
-
-
-.delete-btn {
-  color: #c00; 
-  font-weight: bold;
-  background: none;
-  border: none;
-  cursor: pointer;
-}
-
-p {
-  margin: 10px 0;
-}
-=======
   border-radius: 4px;
   object-fit: cover; /* Ensure images fill the space */
 }
@@ -155,4 +97,3 @@ CartPage-.fas:hover {
       transform: rotate(360deg);
   }
 }
->>>>>>> 4811b4f248ab8a21edc86372af783c9cae638d54

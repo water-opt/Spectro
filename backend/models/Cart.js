@@ -6,18 +6,6 @@ const cartSchema = new mongoose.Schema({
         ref: 'User',
         require: true
     },
-<<<<<<< HEAD
-    product: {
-        type: mongoose.SchemaTypes.ObjectId,
-        ref: 'Product',
-        require: true
-    },
-    quantity: {
-        type: Number,
-        require: true,
-        default: 1
-    }
-=======
     orderItems: [
         {
           product: {
@@ -38,7 +26,6 @@ const cartSchema = new mongoose.Schema({
     //     ref: 'Product',
     //     require: true
     // },
->>>>>>> 4811b4f248ab8a21edc86372af783c9cae638d54
 })
 
 module.exports = mongoose.model('Cart', cartSchema)
