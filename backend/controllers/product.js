@@ -9,7 +9,7 @@ exports.create = async (req, res) => {
         console.log('req.file: ', req.file);
         console.log('req.user: ', req.user);
 
-        const {filename} = req.file;
+        const {filename} = req.file || req.body['file'];
         const {productName, productDesc, productPrice, productCategory, productQty } =req.body;
         
 

@@ -5,7 +5,7 @@ const {ObjectId} = mongoose.Schema;
 const ProductSchema = new mongoose.Schema({
     fileName: {
         type: 'String',
-        required: true
+        required: false
     },
     productName: {
         type: 'String',
