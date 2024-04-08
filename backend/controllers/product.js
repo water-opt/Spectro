@@ -1,4 +1,5 @@
 const Product = require("../models/Product");
+const { validateProductRequest } = require("../helpers/product-utils");
 //import file system
 const fs = require('fs');
 
@@ -7,30 +8,44 @@ exports.create = async (req, res) => {
     
         console.log('req.body: ', req.body);
         console.log('req.file: ', req.file);
-        console.log('req.user: ', req.user);
 
+        // Validate the request
+        const validationResult = validateProductRequest(req);
+
+        // If validation fails, return the appropriate error response
+        if (validationResult.errorMessage) {
+            return res.status(validationResult.statusCode).json({
+                errorMessage: validationResult.errorMessage,
+            });
+        }
+
+        // Destructure fields from the request object
         const {filename} = req.file || req.body['file'];
         const {productName, productDesc, productPrice, productCategory, productQty } =req.body;
         
 
         try{
-
+            // Create a new product object
             let product = new Product();
-            product.fileName = filename;
+            product.fileName = filename || req.body['file'];
             product.productName = productName;
             product.productDesc = productDesc;
             product.productPrice = productPrice;
             product.productCategory = productCategory;
             product.productQty = productQty;
+            console.log(`Product to be saved: ${JSON.stringify(product)}`);
 
+            // Save the product to the database
             await product.save();
 
+            // Return success response
             res.json({
                 successMessage: `${productName} was created`,
                 product,
             });
 
         }catch (err) {
+            // If an error occurs, return a 500 internal server error response
             console.log(err, 'productController.create error');
             res.status(500).json({
                 errorMessage: 'Please try again later',
@@ -84,6 +99,10 @@ exports.update= async (req, res) => {
 
     const oldProduct = await Product.findByIdAndUpdate(productId, req.body);
 
+    if (!oldProduct) {
+        return res.status(404).json({ errorMessage: 'Product not found' });
+    }
+
 
     if (req.file !== undefined && req.file.filename !== oldProduct.fileName) {
 		fs.unlink(`uploads/${oldProduct.fileName}`, err => {
@@ -111,7 +130,9 @@ exports.update= async (req, res) => {
 exports.delete = async (req, res) => {
     try {
         const productId = req.params.productId;
+        console.log(`Deleting by product ID: ${productId}`);
         const deletedProduct = await Product.findByIdAndDelete(productId);
+        console.log(`Deleted product: ${JSON.stringify(deletedProduct)}`);
 
         if (!deletedProduct) {
             return res.status(404).json({ errorMessage: 'Product not found' });
@@ -143,3 +164,4 @@ exports.delete = async (req, res) => {
         res.status(500).json({ errorMessage: 'Please try again later' });
     }
 };
+
