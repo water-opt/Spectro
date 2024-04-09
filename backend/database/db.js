@@ -11,10 +11,12 @@ const connectDB = async () => {
                 useNewUrlParser: true,
                 useUnifiedTopology: true,
             });
-
-        console.log('Database connecton success');
+            if (process.env.NODE_ENV !== 'test') {
+                console.log('Database connecton success');
+            }
     } catch (err) {
-        console.log(err);
+        // Throw an error if the connection fails
+        throw new Error('Database connection error: ' + err.message);
     }
 };
 

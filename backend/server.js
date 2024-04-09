@@ -51,4 +51,8 @@ app.use('/api/order/rider', orderRiderRoutes);
 connectDB();
 
 /* Start server */
-app.listen(port, ()  => console.log(`Listening on port ${port}`));
+if (process.env.NODE_ENV !== 'test') { // This is used for jest tests. During testing, when you feed your app to supertest, it will run your app on port 0 since it's not already running on a port.  Port 0 is how you tell Unix machines to choose the first randomly available port that you find. Now, each test suite is running on a randomly available port, there is no longer a risk of port collisions which means we've solved the EADDRINUSE - port already in use error and we can continue running tests in parallel. See: https://stackoverflow.com/a/63293781
+    app.listen(port, ()  => console.log(`Listening on port ${port}`));
+}
+
+module.exports = app;

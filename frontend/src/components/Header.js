@@ -47,7 +47,7 @@ const Header = () => {
                             {role === 'user' && 
                             <>
                                 <li className="nav-item">
-                                    <Link to='/home' className="nav-link" aria-current="page" style={{ color: '#333' }}><i className='fas fa-home'></i> Home</Link>
+                                    <Link to='/' className="nav-link" aria-current="page" style={{ color: '#333' }}><i className='fas fa-home'></i> Home</Link>
                                 </li>
                                 <li className="nav-item">
                                     <Link to='/shop' className="nav-link" aria-current="page" style={{ color: '#333' }}><i className='fas fa-shopping-bag'></i> Shop</Link>
