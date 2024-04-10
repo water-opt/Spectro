@@ -42,10 +42,10 @@ const Shop = () => {
             const response = await axios.post('http://localhost:4000/api/filter/search', { type: 'text', query: e.target.value });
             dispatch({ type: GET_PRODUCTS, payload: response.data.products });
         } catch (err) {
-            console.log('getProductsByFilter api error: ', err);
-            
-            
+            console.log('getProductsByFilter api error: ', err);   
         }
+
+        console.log(e.target.value);
     };
 
     
