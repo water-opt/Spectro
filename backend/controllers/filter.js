@@ -27,6 +27,7 @@ exports.getNewArrivals = async (req, res) => {
 exports.searchByQueryType = async (req, res) => {
 
     const {type, query} =req.body;
+    console.log(req.body);
     
     try{
 
