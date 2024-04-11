@@ -13,10 +13,13 @@ const Header = () => {
 
     useEffect(() => {
         if (role === 'admin') {
-            setContentType('admin dashboard')
+            setContentType('Admin Dashboard')
         } else if (role === 'rider') {
             setContentType('rider dashboard')
+        } else if (role === 'user') {
+            setContentType(' ')
         }
+
     }, [role])
 
     const logout = async () => {
