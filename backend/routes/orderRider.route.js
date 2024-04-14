@@ -1,9 +1,10 @@
 const express = require('express')
-const { addOrder, getAssignedOrders } = require('../controllers/orderRider.controller')
+const { addOrder, getAssignedOrders, getAllOrders } = require('../controllers/orderRider.controller')
 
 const router = express.Router()
 
 router.post('/', addOrder)
 router.get('/', getAssignedOrders)
+router.get('/all', getAllOrders)
 
 module.exports = router

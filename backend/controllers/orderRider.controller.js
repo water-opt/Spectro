@@ -39,5 +39,15 @@ const getAssignedOrders = async (req, res) => {
     }
 };
 
+const getAllOrders = async (req, res) => {
+    try {
+        const orders = await model.find().populate('order').populate('rider').populate('user');
+        res.status(200).json(orders)
+    } catch (errors) {
+        console.error(errors)
+        res.status(500).json({ errors: 'Internal Server Error' })
+    }
+}
 
-module.exports = { addOrder, getAssignedOrders }
+
+module.exports = { addOrder, getAssignedOrders, getAllOrders }

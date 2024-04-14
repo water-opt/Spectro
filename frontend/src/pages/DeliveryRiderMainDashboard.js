@@ -26,13 +26,17 @@ const MainRiderDashboard = () => {
 
   return (
     <div className="delivery-rider-dashboard">
-      <header className="header">
-        <h1 className="logo">Delivery Dashboard</h1>
-        <div className="profile-info">
-          <i className="fas fa-user-circle"></i>
-          <span>John Doe</span>
-        </div>
-      </header>
+      <div className='bg-dark text-white py-4' style={{ marginBottom: '20px', marginLeft: '-30px', marginRight: '-30px', marginTop: '-28px' }}>
+          <div className='container'>
+              <div className='row'>
+                  <div className='col-md-6'>
+                      <h1>
+                          <i> Delivery Dashboard</i>
+                      </h1>
+                  </div>
+              </div>
+          </div>
+      </div>
       <nav className="navigation">
         <ul>
           <li>
@@ -47,22 +51,20 @@ const MainRiderDashboard = () => {
             </Link>
           </li>
         </ul>
+        
       </nav>
       <main className="content">
-        <h2>Accepted Orders</h2>
+        <h2 style={{ marginTop: '50px', marginBottom: '50px' }}>Accepted Orders</h2>
         {acceptedOrders.length > 0 ? (
-          <ul className="orders-list">
-            {acceptedOrders.map((order) => (
-              <li key={order.id} className="order-item" onClick={() => handleOrderClick(order.id)}>
-                <div className="order-details">
-                  <h3>Order ID: {order._id}</h3>
-                  <p>Customer: {order.user.username}</p>
-                  <p>Delivery Address: {order.user.address}</p>
-                  {/* Add more order details if needed */}
-                </div>
-              </li>
+          <div className="orders-containers" style={{ marginBottom: '80px' }}>
+            {acceptedOrders.map((order, index) => (
+              <div key={order.id} className="order-card" onClick={() => handleOrderClick(order.id)}>
+                <h3 style={{ fontStyle: 'italic', marginBottom: '20px' }}><strong>Order ID: {order._id}</strong></h3>
+                <p><strong>Customer:</strong> {order.user.username}</p>
+                <p><strong>Delivery Address:</strong> {order.user.address}</p>
+              </div>
             ))}
-          </ul>
+          </div>
         ) : (
           <p className="no-orders-message">You currently have no accepted orders.</p>
         )}

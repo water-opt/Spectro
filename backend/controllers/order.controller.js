@@ -108,6 +108,29 @@ const getPendingOrders = async (req, res) => {
   }
 };
 
+const getProcessingOrders = async (req, res) => {
+  const status = "processing";
+
+  try {
+    const orders = await model.find({ status: status }).populate('orderItems.product').populate('user');
+    res.status(200).json(orders);
+  } catch (error) {
+    console.error(error);
+    res.status(500).json({ error: 'Internal Server Error' });
+  }
+};
+
+const getCancelledOrders = async (req, res) => {
+  const status = "cancelled";
+
+  try {
+    const orders = await model.find({ status: status }).populate('orderItems.product').populate('user');
+    res.status(200).json(orders);
+  } catch (error) {
+    console.error(error);
+    res.status(500).json({ error: 'Internal Server Error' });
+  }
+};
 
 const removeOrder = async (req, res) => {
   const { id } = req.params
@@ -179,5 +202,7 @@ module.exports = {
   updateOrder,
   updateQuantity,
   getAllOrders,
-  getPendingOrders
+  getPendingOrders,
+  getProcessingOrders,
+  getCancelledOrders
 }
