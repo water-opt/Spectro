@@ -194,12 +194,8 @@ const Orders = () => {
       </main>
 
       <br/> <br/> <br/> <br/> <br/> <br/> <br/>
-      {selectedOrder && <OrderDetailsPopup selectedOrder={selectedOrder} handleClosePopup={handleClosePopup} cancelOrder={CancelOrder} />}
-
-      
+      {selectedOrder && <OrderDetailsPopup selectedOrder={selectedOrder} handleClosePopup={handleClosePopup} cancelOrder={CancelOrder} />}  
     </div>
-
-   
   );
 };
 

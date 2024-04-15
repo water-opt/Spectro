@@ -11,8 +11,9 @@ const AcceptedOrders = () => {
     useEffect(() => {
         const fetchAcceptedOrders = async () => {
             try {
-                const response = await axios.get('#');
+                const response = await axios.get(`/api/order/rider/${id}`);
                 setOrder(response.data);
+                console.log(order);
                 setLoading(false);
             } catch (error) {
                 setError(true);

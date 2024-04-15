@@ -49,5 +49,16 @@ const getAllOrders = async (req, res) => {
     }
 }
 
+const getClickedOrder = async (req, res) => {
+    const { id } = req.params
 
-module.exports = { addOrder, getAssignedOrders, getAllOrders }
+    try {
+        const orders = await model.find({ _id: id }).populate('order').populate('rider').populate('user')
+        res.status(200).json(orders)
+    } catch (errors) {
+        console.error(errors)
+        res.status(500).json({ errors: 'Internal Server Error' })
+    }
+}
+
+module.exports = { addOrder, getAssignedOrders, getAllOrders, getClickedOrder }
