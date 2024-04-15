@@ -11,7 +11,7 @@ const getProgressBarStyle = (status) => {
     case 'processing':
       color = 'orange';
       break;
-    case 'shipped':
+    case 'out for delivery':
       color = 'green';
       break;
     case 'delivered':

@@ -52,8 +52,13 @@ const getAllOrders = async (req, res) => {
 const getClickedOrder = async (req, res) => {
     const { id } = req.params
 
+    console.log(id)
+    if (!mongoose.Types.ObjectId.isValid(id)) {
+        return res.status(400).json({ error: 'Invalid order ID' })
+    }
+
     try {
-        const orders = await model.find({ _id: id }).populate('order').populate('rider').populate('user')
+        const orders = await model.findOne({ _id: id }).populate('rider').populate('order').populate('user')
         res.status(200).json(orders)
     } catch (errors) {
         console.error(errors)
