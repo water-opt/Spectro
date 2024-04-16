@@ -24,13 +24,27 @@ const AcceptedOrders = () => {
     fetchAcceptedOrders();
   }, [orderId]);
 
-  const handleStatusUpdate = async () => {
+  const handleStatusUpdate = async (newStatus) => {
+    const updates = { status: newStatus }
+    const id = orderId
+
     try {
-      await axios.put(`/api/order/${orderId}`, { status });
+      await axios.put(`/api/orders/${id}`, updates);
       // Assuming successful update, you can show a success message or redirect
       console.log('Status updated successfully');
     } catch (error) {
       console.log('Error updating status', error);
+    }
+  };
+
+  const getStatusColor = (status) => {
+    switch (status) {
+      case 'out for delivery':
+        return '#ffc107'; // Yellow
+      case 'delivered':
+        return '#28a745'; // Green
+      default:
+        return '#6c757d'; // Gray
     }
   };
 
@@ -69,7 +83,7 @@ const AcceptedOrders = () => {
             <h2 className="text-center py-4">Order Summary</h2>
             <div className="d-flex mb-3 justify-content-between">
               <span className="fw-bold">Status:</span>
-              <span>{orderCaptured.order.status}</span>
+              <span style={{ backgroundColor: getStatusColor(orderCaptured.order.status), padding: '0.5rem', borderRadius: '0.25rem' }}>{orderCaptured.order.status}</span>
             </div>
             <div className="d-flex mb-3 justify-content-between">
               <span className="fw-bold">Total:</span>
@@ -77,23 +91,41 @@ const AcceptedOrders = () => {
             </div>
             <div className="form-group">
               <label htmlFor="status">Update Status:</label>
-              <select
-                id="status"
-                className="form-control form-select-sm"
-                value={status}
-                onChange={(e) => setStatus(e.target.value)}
-              >
-                <option value="">Select Status</option>
-                <option value="out for delivery">Out for Delivery</option>
-                <option value="delivered">Delivered</option>
-              </select>
+              <div className="form-check">
+                <input
+                  className="form-check-input"
+                  type="checkbox"
+                  id="outForDelivery"
+                  value="out for delivery"
+                  checked={status === 'out for delivery'}
+                  onChange={(e) => {
+                    const isChecked = e.target.checked;
+                    setStatus(isChecked ? 'out for delivery' : '');
+                    handleStatusUpdate(isChecked ? 'out for delivery' : 'delivered');
+                  }}
+                />
+                <label className="form-check-label" htmlFor="outForDelivery">
+                  Out for Delivery
+                </label>
+              </div>
+              <div className="form-check">
+                <input
+                  className="form-check-input"
+                  type="checkbox"
+                  id="delivered"
+                  value="delivered"
+                  checked={status === 'delivered'}
+                  onChange={(e) => {
+                    const isChecked = e.target.checked;
+                    setStatus(isChecked ? 'delivered' : '');
+                    handleStatusUpdate(isChecked ? 'delivered' : 'out for delivery');
+                  }}
+                />
+                <label className="form-check-label" htmlFor="delivered">
+                  Delivered
+                </label>
+              </div>
             </div>
-            <button
-              className="btn btn-primary mt-3 shadow-sm d-block mx-auto"
-              onClick={handleStatusUpdate}
-            >
-              Update Status
-            </button>
           </div>
         </div>
       )}
