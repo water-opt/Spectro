@@ -24,6 +24,7 @@ import OrdersAccepted from '../pages/Status'
 import MainAdminDashboard from '../pages/AdminMainDashboard'
 import DeliveryAdminMain from '../pages/DeliveryAdminMain'
 import DeliveryRiderMainDashboard from '../pages/DeliveryRiderMainDashboard'
+import RiderInvoice from '../pages/RiderInvoice'
 import Footer from './Footer';
 
 const App = () => {
@@ -63,6 +64,7 @@ const App = () => {
                     <Route path='/riders/orders/:orderId' element={<OrdersAccepted />} />
                     <Route path='/delivery/main/dashboard' element={<DeliveryAdminMain />} />
                     <Route path='/delivery/rider/dashboard' element={<DeliveryRiderMainDashboard />} />
+                    <Route path='/rider/invoice/:id' element={<RiderInvoice />} />
 
                     <Route path='/admin/main/dashboard' element={<MainAdminDashboard />} />
                 </Routes>
