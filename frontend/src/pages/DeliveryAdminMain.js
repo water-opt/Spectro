@@ -14,6 +14,7 @@ const DeliveryDashboardAdmin = () => {
   const [ridersCount, setRidersCount] = useState(null);
   const [vehicleCount, setVehicleCount] = useState(null);
   const [pendingOrdersCount, setPendingOrdersCount] = useState(null);
+  const [OutForDelivery, setOutForDeliveryOrders] = useState(null);
   const [isLoading, setLoading] = useState(true);
   const [errors, setErrors] = useState(false);
   const { role } = useRole();
@@ -28,21 +29,21 @@ const DeliveryDashboardAdmin = () => {
           if (response.status !== 200) {
             throw new Error('Failed to fetch data');
           }
-          setPending(response.data);
+          setPending(response.data.length);
           return axios.get('/api/orders/processing');
         })
         .then(response => {
           if (response.status !== 200) {
             throw new Error('Failed to fetch data');
           }
-          setProcessing(response.data);
+          setProcessing(response.data.length);
           return axios.get('/api/orders/cancelled');
         })
         .then(response => {
           if (response.status !== 200) {
             throw new Error('Failed to fetch data');
           }
-          setCancelled(response.data);
+          setCancelled(response.data.length);
           return axios.get('/api/riders')
         })
         .then(response => {
@@ -64,6 +65,13 @@ const DeliveryDashboardAdmin = () => {
             throw new Error('Failed to fetch data');
           }
           setPendingOrdersCount(response.data.length);
+          return axios.get('/api/orders/outfordelivery');
+        })
+        .then(response => {
+          if (response.status !== 200) {
+            throw new Error('Failed to fetch data');
+          }
+          setOutForDeliveryOrders(response.data.length)
         })
         .catch(error => {
           console.error('Error fetching data:', error);
@@ -71,34 +79,36 @@ const DeliveryDashboardAdmin = () => {
         })
         .finally(() => {
           setLoading(false);
+          console.log(pendingOrdersCount)
+          console.log(processing)
+          console.log(cancelled)
+          console.log(OutForDelivery)
         });
     }
   }, [role, navigate]);
 
   useEffect(() => {
-    if (pending && processing && cancelled) {
-      const totalPending = pending.length;
-      const totalProcessing = processing.length;
-      const totalCancelled = cancelled.length;
-
+    if (pending && processing && cancelled && OutForDelivery) {
       setChartData({
-        labels: ['Pending', 'Processing', 'Cancelled'],
+        labels: ['Pending', 'Processing', 'Cancelled', 'Out For Delivery'],
         datasets: [{
-          data: [totalPending, totalProcessing, totalCancelled],
+          data: [pendingOrdersCount, processing, cancelled, OutForDelivery],
           backgroundColor: [
             'rgba(255, 99, 132, 0.6)',
             'rgba(54, 162, 235, 0.6)',
-            'rgba(255, 206, 86, 0.6)'
+            'rgba(255, 206, 86, 0.6)',
+            'rgba(255, 255, 86, 0.8)'
           ],
           hoverBackgroundColor: [
             'rgba(255, 99, 132, 0.8)',
             'rgba(54, 162, 235, 0.8)',
-            'rgba(255, 206, 86, 0.8)'
+            'rgba(255, 206, 86, 0.8)',
+            'rgba(255, 255, 86, 0.8)'
           ]
         }]
       });
     }
-  }, [pending, processing, cancelled]);
+  }, [pending, processing, cancelled, OutForDelivery]);
 
   return (
     <div style={{ marginBottom: '100px' }}>
@@ -119,7 +129,7 @@ const DeliveryDashboardAdmin = () => {
         </div>
         <div className='upper-container'>
           <div className='upper-right-container'>
-            <h2>Order Status</h2>
+            <h2 style={{ marginBottom: '30px' }}>Order Status</h2>
             <div className='chart-container'>
               {chartData ? (
                 <Doughnut key={JSON.stringify(chartData)} data={chartData} />
@@ -139,8 +149,12 @@ const DeliveryDashboardAdmin = () => {
                 <p>{vehicleCount}</p>
               </div>
               <div className='stat-item'>
-                <p>Orders to be Fulfilled</p>
+                <p>To be Fulfilled</p>
                 <p>{pendingOrdersCount}</p>
+              </div>
+              <div className='stat-item'>
+                <p>Fulfilled</p>
+                <p>{OutForDelivery}</p>
               </div>
             </div>
           </div>
