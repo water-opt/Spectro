@@ -1,20 +1,20 @@
-.riderr-details-container {
+.rider-details-container {
     padding: 20px;
 }
 
-.riderr-details {
+.rider-details {
     border: 1px solid #ccc;
     padding: 20px;
     border-radius: 5px;
     background-color: #f9f9f9;
 }
 
-.buttonn-group {
+.button-group {
     margin-right: 20px;
     margin-top: 20px;
 }
 
-.editt-button, .deletee-button {
+.edit-button, .delete-button {
     padding: 8px 16px;
     margin-right: 10px;
     border: none;
@@ -25,10 +25,10 @@
     text-decoration: none;
 }
 
-.editt-button:hover, .deletee-button:hover {
+.edit-button:hover, .delete-button:hover {
     background-color: #0056b3;
 }
 
-.deletee-button {
+.delete-button {
     background-color: #dc3545;
 }

@@ -36,7 +36,7 @@ const OrdersDelivery = () => {
 
     const addToDelivery = async (id, user) => {
         const updates = { status: "processing" }
-    
+
         try {
             await axios.put(`/api/orders/${id}`, updates);
             console.log('Order status updated to processing:', id);
@@ -46,14 +46,12 @@ const OrdersDelivery = () => {
                 user: user
             })
             console.log('Order added to delivery:', id);
-    
+
             setAcceptedOrders(new Set([...acceptedOrders, id]));
-            setOrders(orders.filter(order => order._id !== id));
         } catch (errors) {
             console.error('Error accepting the order:', error)
         }
     }
-    
 
     return (
         <div className='orders-container'>

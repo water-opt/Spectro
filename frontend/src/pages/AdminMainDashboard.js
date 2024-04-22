@@ -208,7 +208,7 @@ const MainAdminDashboard = () => {
                 <div className='options-container'>
                     <Link to='/delivery/main/dashboard' className='option'><button style={{ backgroundColor: 'transparent', color: 'white', border: 'none' }}>Delivery</button></Link>
                     <Link to='/admin/dashboard' className='option'><button style={{ backgroundColor: 'transparent', color: 'white', border: 'none' }}>Product</button></Link>
-                    <Link to='#' className='option'><button style={{ backgroundColor: 'transparent', color: 'white', border: 'none' }}>SupplierRequests</button></Link>
+                    <Link to='/admin/quatationDetails' className='option'><button style={{ backgroundColor: 'transparent', color: 'white', border: 'none' }}>SupplierRequests</button></Link>
                 </div>
             </div>
            {!isSidePanelOpen && (

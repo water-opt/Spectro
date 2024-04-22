@@ -1,6 +1,6 @@
 import { useState, useEffect } from 'react';
 import axios from 'axios';
-import { useParams, useNavigate } from 'react-router-dom';
+import { useParams } from 'react-router-dom';
 
 const AcceptedOrders = () => {
   const [orderCaptured, setOrder] = useState(null);
@@ -8,14 +8,12 @@ const AcceptedOrders = () => {
   const [error, setError] = useState(false);
   const [status, setStatus] = useState('');
   const { orderId } = useParams();
-  const navigate = useNavigate();
 
   useEffect(() => {
     const fetchAcceptedOrders = async () => {
       try {
         const response = await axios.get(`/api/order/rider/${orderId}`);
         setOrder(response.data);
-        setStatus(response.data.order.status);
         setLoading(false);
       } catch (error) {
         setError(true);
@@ -24,34 +22,15 @@ const AcceptedOrders = () => {
     };
 
     fetchAcceptedOrders();
-  }, [orderId, status]);
+  }, [orderId]);
 
-  const handleStatusUpdate = async (newStatus) => {
-    const updates = { status: newStatus }
-    const id = orderCaptured.order._id
-
+  const handleStatusUpdate = async () => {
     try {
-      await axios.put(`/api/orders/${id}`, updates);
-      console.log('Status updated '+ newStatus);
-      setStatus(newStatus);
-      
-      if (newStatus === 'delivered') {
-        navigate(`/rider/invoice/${id}`)
-      }
-
+      await axios.put(`/api/order/${orderId}`, { status });
+      // Assuming successful update, you can show a success message or redirect
+      console.log('Status updated successfully');
     } catch (error) {
       console.log('Error updating status', error);
-    }
-  };
-
-  const getStatusColor = (status) => {
-    switch (status) {
-      case 'out for delivery':
-        return '#Ff0000'; // Red
-      case 'delivered':
-        return '#28a745'; // Green
-      default:
-        return '#ffc107'; // Yellow
     }
   };
 
@@ -90,31 +69,31 @@ const AcceptedOrders = () => {
             <h2 className="text-center py-4">Order Summary</h2>
             <div className="d-flex mb-3 justify-content-between">
               <span className="fw-bold">Status:</span>
-              <span style={{ backgroundColor: getStatusColor(status), padding: '0.5rem', borderRadius: '0.25rem' }}>{status}</span>
+              <span>{orderCaptured.order.status}</span>
             </div>
             <div className="d-flex mb-3 justify-content-between">
               <span className="fw-bold">Total:</span>
               <span>{orderCaptured.order.total}</span>
             </div>
             <div className="form-group">
-              <label style={{ marginBottom: '25px' }}>Update Status:</label>
-              <span style={{ marginLeft: '50px' }}>
-                <button
-                  className="btn btn-primary me-2"
-                  onClick={() => handleStatusUpdate('out for delivery')}
-                  disabled={status === 'out for delivery'}
-                >
-                  Out for Delivery
-                </button>
-                <button
-                  className="btn btn-success"
-                  onClick={() => handleStatusUpdate('delivered')}
-                  disabled={status === 'delivered'}
-                >
-                  Delivered
-                </button>
-              </span>
+              <label htmlFor="status">Update Status:</label>
+              <select
+                id="status"
+                className="form-control form-select-sm"
+                value={status}
+                onChange={(e) => setStatus(e.target.value)}
+              >
+                <option value="">Select Status</option>
+                <option value="out for delivery">Out for Delivery</option>
+                <option value="delivered">Delivered</option>
+              </select>
             </div>
+            <button
+              className="btn btn-primary mt-3 shadow-sm d-block mx-auto"
+              onClick={handleStatusUpdate}
+            >
+              Update Status
+            </button>
           </div>
         </div>
       )}

@@ -123,8 +123,8 @@ const Vehicles = () => {
                         <p>Address: <input style={{ width: '500px' }}value={selectedRider.address} /></p>
                         <p>NiC: <input value={selectedRider.nic} /></p>
                         <div style={{ marginLeft: '890px' }} className="button-container">
-                            <button className="editt-button" onClick={() => EditHandler(selectedRider._id, selectedRider.name)}>Edit</button>
-                            <button className="deletee-button" onClick={() => DeleteHandler(selectedRider._id, selectedRider.name)}>Delete</button>
+                            <button className="edit-button" onClick={() => EditHandler(selectedRider._id, selectedRider.name)}>Edit</button>
+                            <button className="delete-button" onClick={() => DeleteHandler(selectedRider._id, selectedRider.name)}>Delete</button>
                         </div>
                     </div>
                 </div>

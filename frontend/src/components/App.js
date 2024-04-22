@@ -24,8 +24,18 @@ import OrdersAccepted from '../pages/Status'
 import MainAdminDashboard from '../pages/AdminMainDashboard'
 import DeliveryAdminMain from '../pages/DeliveryAdminMain'
 import DeliveryRiderMainDashboard from '../pages/DeliveryRiderMainDashboard'
-import RiderInvoice from '../pages/RiderInvoice'
 import Footer from './Footer';
+
+
+//supply
+import AddSupplier from '../pages/supply/addsupplier';
+import SupplierDetails from '../pages/supply/supplierdetails';
+import UpdateSupplier from '../pages/supply/UpdateSupplier';
+import SupplierReport from '../pages/supply/Dashboard';
+//quatation
+import AddQuatation from '../pages/quatation/addQuatatiom';
+import QuatationDetails from '../pages/quatation/quatationdetails';
+
 
 const App = () => {
 
@@ -34,6 +44,18 @@ const App = () => {
             <Header/>
             <main>
                 <Routes>
+
+                    {/* Routes for supply */}
+                    <Route path='/admin/AddSupplier' element={<AddSupplier/>}></Route>
+                    <Route path='/admin/supplierDetails' element={<SupplierDetails/>}></Route>
+                    <Route path='/updateOrder/:id' element={<UpdateSupplier/>}></Route>
+                    <Route path='admin/totalSupplierReport' element={<SupplierReport/>}></Route>
+
+                    {/* Routes for quatation */}
+                    <Route path='/addQuatation' element={<AddQuatation/>}></Route>
+                    <Route path='/admin/quatationDetails' element={<div><QuatationDetails/></div>}></Route>
+            
+
 
                     <Route exact path='/admin/dashboard' Component={AdminDashboard}/>
                     <Route exact path='/' Component={Home}/>
@@ -64,7 +86,6 @@ const App = () => {
                     <Route path='/riders/orders/:orderId' element={<OrdersAccepted />} />
                     <Route path='/delivery/main/dashboard' element={<DeliveryAdminMain />} />
                     <Route path='/delivery/rider/dashboard' element={<DeliveryRiderMainDashboard />} />
-                    <Route path='/rider/invoice/:id' element={<RiderInvoice />} />
 
                     <Route path='/admin/main/dashboard' element={<MainAdminDashboard />} />
                 </Routes>
