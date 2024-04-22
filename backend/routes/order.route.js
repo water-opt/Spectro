@@ -1,5 +1,5 @@
 const express = require('express')
-const { placeOrder, getOneOrder, getOrders, getAllOrders, removeOrder, updateOrder, updateQuantity, getPendingOrders, getProcessingOrders, getCancelledOrders, getOutDelivery } = require('../controllers/order.controller')
+const { placeOrder, getOneOrder, getOrders, getAllOrders, removeOrder, updateOrder, updateQuantity, getPendingOrders, getProcessingOrders, getCancelledOrders } = require('../controllers/order.controller')
 
 const router = express.Router()
 
@@ -9,7 +9,6 @@ router.get('/all', getAllOrders)
 router.get('/pending', getPendingOrders)
 router.get('/processing', getProcessingOrders)
 router.get('/cancelled', getCancelledOrders)
-router.get('/outfordelivery', getOutDelivery)
 router.get('/:id', getOneOrder)
 router.put('/:id', updateOrder)
 router.delete('/:id', removeOrder)

@@ -132,18 +132,6 @@ const getCancelledOrders = async (req, res) => {
   }
 };
 
-const getOutDelivery = async (req, res) => {
-  const status = "out for delivery";
-
-  try {
-    const orders = await model.find({ status: status }).populate('orderItems.product').populate('user');
-    res.status(200).json(orders)
-  } catch (error) {
-    console.error(error);
-    res.status(500).json({ error: 'Internal Server Error' });
-  }
-};
-
 const removeOrder = async (req, res) => {
   const { id } = req.params
 
@@ -216,6 +204,5 @@ module.exports = {
   getAllOrders,
   getPendingOrders,
   getProcessingOrders,
-  getCancelledOrders,
-  getOutDelivery
+  getCancelledOrders
 }

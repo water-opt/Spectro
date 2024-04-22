@@ -11,7 +11,9 @@ const orderRoutes = require('./routes/order.route');
 const cartRoutes = require('./routes/cart.route');
 const riderRoutes = require('./routes/rider.route');
 const deliveryVehicleRoutes = require('./routes/vehicle.route');
-const orderRiderRoutes = require('./routes/orderRider.route')
+const orderRiderRoutes = require('./routes/orderRider.route');
+const quatationRoutes = require('./routes/supply/quatationroutes');
+const supplierRoutes  = require('./routes/supply/supplierroutes');
 
 /* Configure environment variables */
 require('dotenv').config();
@@ -22,6 +24,7 @@ const uri = process.env.URI;
 const app = express();
 
 /* Configure middleware */
+app.use(express.static('Images'))
 app.use(cors());
 app.use(session({
     secret: "qwrewadsc2wjdnaskf9ajsn1",
@@ -45,6 +48,11 @@ app.use('/api/deliveryvehicles', deliveryVehicleRoutes);
 app.use('/api/riders', riderRoutes);
 app.use('/api/user', userRoutes);
 app.use('/api/order/rider', orderRiderRoutes);
+
+//supply
+app.use('/api/quatation', quatationRoutes);
+app.use('/api/supplier', supplierRoutes);
+
 
 
 /* Initialize database connection */
