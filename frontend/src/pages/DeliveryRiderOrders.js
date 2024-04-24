@@ -40,19 +40,20 @@ const OrdersDelivery = () => {
         try {
             await axios.put(`/api/orders/${id}`, updates);
             console.log('Order status updated to processing:', id);
-            
+    
             await axios.post('/api/order/rider', {
                 order: id,
                 user: user
             })
             console.log('Order added to delivery:', id);
     
-            setAcceptedOrders(new Set([...acceptedOrders, id]));
+            setAcceptedOrders([...acceptedOrders, id]);
             setOrders(orders.filter(order => order._id !== id));
         } catch (errors) {
             console.error('Error accepting the order:', error)
         }
     }
+    
     
 
     return (
@@ -71,13 +72,13 @@ const OrdersDelivery = () => {
                     </thead>
                     <tbody>
                         {orders && orders.map((order) => (
-                            <tr key={order._id}>
+                            <tr key={order._id} className={acceptedOrders.has(order._id) ? 'accepted-order' : ''}>
                                 <td>#{order._id}</td>
                                 <td>{new Date(order.createdAt).toLocaleDateString()}</td>
                                 <td>{order.user.username},<br/> {order.user.mobile},<br/> {order.user.address}</td>
                                 <td>
                                     <div>
-                                        <button className='accept-btn' onClick={() => addToDelivery(order._id, order.user)}>
+                                        <button className='accept-btn' onClick={() => addToDelivery(order._id, order.user)} disabled={acceptedOrders.has(order._id)}>
                                             {acceptedOrders.has(order._id) ? 'Accepted' : 'Accept'}
                                         </button>
                                         <p className='condition-order'>*you can't reject once accepted.</p>

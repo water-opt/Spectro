@@ -13,7 +13,6 @@ import Signup from '../pages/Registration';
 import Cart from '../pages/CartPage';
 import Orders from '../pages/OrdersPage';
 import OrderDet from '../pages/OrderDetails';
-import RiderDet from '../pages/RiderDet';
 import Invoice from '../pages/Invoice';
 import Vehicle from '../pages/VehicleDetails';
 import Rider from '../pages/RiderDetails'; 
@@ -59,7 +58,6 @@ const App = () => {
                     <Route path='/riders/registrationform' element={<Rider/>}/>
                     <Route path='/vehicles/dashboard' element={<VehicleDash/>}/>
                     <Route path='/riders/dashboard' element={<RiderDash/>}/> 
-                    <Route path='/riders/:id' element={<RiderDet/>}/>
                     <Route path='/delivery/orders' element={<OrderAccept />} />
                     <Route path='/riders/orders/:orderId' element={<OrdersAccepted />} />
                     <Route path='/delivery/main/dashboard' element={<DeliveryAdminMain />} />

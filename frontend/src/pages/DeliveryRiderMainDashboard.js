@@ -59,11 +59,11 @@ const MainRiderDashboard = () => {
         {acceptedOrders.length > 0 ? (
           <div className="orders-containers" style={{ marginBottom: '80px' }}>
             {acceptedOrders.map((order, index) => (
-              <div key={order._id} className="order-card" onClick={() => handleOrderClick(order._id)}>
-                <h3 style={{ fontStyle: 'italic', marginBottom: '20px' }}><strong>Order ID: {order._id}</strong></h3>
-                <p><strong>Customer:</strong> {order.user.username}</p>
-                <p><strong>Delivery Address:</strong> {order.user.address}</p>
-              </div>
+            <div key={order._id} className="order-card" onClick={() => handleOrderClick(order._id)} style={{ opacity: order.order.status === 'out for delivery' || order.order.status === 'delivered' ? 0.5 : 1 }}>
+              <h3 style={{ fontStyle: 'italic', marginBottom: '20px' }}><strong>Order ID: {order._id}</strong></h3>
+              <p><strong>Customer:</strong> {order.user.username}</p>
+              <p><strong>Delivery Address:</strong> {order.user.address}</p>
+            </div>
             ))}
           </div>
         ) : (
