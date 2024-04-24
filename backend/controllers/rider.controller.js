@@ -65,9 +65,30 @@ const DeleteRider = async (req, res) => {
     }
 }
 
+const EditRider = async (req, res) => {
+    const { id } = req.params
+    const updates = req.body
+
+    if (!mongoose.Types.ObjectId.isValid(id)) {
+        return res.status(400).json({ error: 'Invalid Rider ID' });
+    }
+
+    try {
+        const order = await model.findByIdAndUpdate({ _id: id }, updates, { new: true }); // Return updated doc
+        if (!order) {
+          return res.status(404).json({ error: 'Rider not found' });
+        }
+        res.json(order);
+      } catch (error) {
+        console.error(error);
+        res.status(500).json({ error: 'Internal Server Error' }); // Corrected 'res.statement' to 'res.status'
+      }
+}
+
 module.exports = {
     addRider,
     getRiders,
     getOneRider,
-    DeleteRider
+    DeleteRider,
+    EditRider
 }

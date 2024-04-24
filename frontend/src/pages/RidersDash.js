@@ -1,6 +1,5 @@
 import { useState, useEffect } from 'react'
 import axios from 'axios'
-// import { Link } from 'react-router-dom'
 import '../styles/VehicleDash.css'
 
 const Vehicles = () => {
@@ -50,11 +49,28 @@ const Vehicles = () => {
             }
         }
     }
-    
 
-    const EditHandler = (id, name) => {
-        
-    }
+    const EditHandler = async () => {
+        const newValues = {
+            name: prompt("Enter new name:", selectedRider.name),
+            mobile: prompt("Enter new contact number:", selectedRider.mobile),
+            address: prompt("Enter new address:", selectedRider.address)
+        };
+    
+        if (newValues.name !== null && newValues.mobile !== null && newValues.address !== null) {
+            try {
+                await axios.put(`/api/riders/${selectedRider._id}`, newValues);
+                setRiders(riders.map(rider => rider._id === selectedRider._id ? { ...rider, ...newValues } : rider));
+                setSelectedRider({ ...selectedRider, ...newValues });
+                if (alert('Successfully Updated ...')) {
+                    handleCloseModal();
+                }
+            } catch (error) {
+                console.log('Error updating rider:', error);
+            }
+        }
+    };
+    
 
     const filteredRiders = riders ? riders.filter(rider => rider.name.toLowerCase().includes(searchTerm.toLowerCase())) : []
 
@@ -118,12 +134,12 @@ const Vehicles = () => {
                     <div className="modal-content">
                         <span className="close" onClick={handleCloseModal}>&times;</span>
                         <h2 style={{ fontWeight: '700', marginBottom: '15px' }}>{selectedRider.name}'s Details</h2>
-                        <p>Age: <input value={selectedRider.age} /></p>
-                        <p>Contact Number: <input value={selectedRider.mobile} /></p>
-                        <p>Address: <input style={{ width: '500px' }}value={selectedRider.address} /></p>
-                        <p>NiC: <input value={selectedRider.nic} /></p>
+                        <p>Age: <input value={selectedRider.age} readOnly /></p>
+                        <p>Contact Number: <input value={selectedRider.mobile} readOnly /></p>
+                        <p>Address: <input style={{ width: '500px' }} value={selectedRider.address} readOnly /></p>
+                        <p>NiC: <input value={selectedRider.nic} readOnly /></p>
                         <div style={{ marginLeft: '890px' }} className="button-container">
-                            <button className="editt-button" onClick={() => EditHandler(selectedRider._id, selectedRider.name)}>Edit</button>
+                            <button className="editt-button" onClick={EditHandler}>Edit</button>
                             <button className="deletee-button" onClick={() => DeleteHandler(selectedRider._id, selectedRider.name)}>Delete</button>
                         </div>
                     </div>
