@@ -79,16 +79,16 @@ const DeliveryDashboardAdmin = () => {
         })
         .finally(() => {
           setLoading(false);
-          console.log(pendingOrdersCount)
-          console.log(processing)
-          console.log(cancelled)
-          console.log(OutForDelivery)
+          // console.log(pendingOrdersCount)
+          // console.log(processing)
+          // console.log(cancelled)
+          // console.log(OutForDelivery)
         });
     }
   }, [role, navigate]);
 
   useEffect(() => {
-    if (pending && processing && cancelled && OutForDelivery) {
+    if (pending || processing || cancelled || OutForDelivery) {
       setChartData({
         labels: ['Pending', 'Processing', 'Cancelled', 'Out For Delivery'],
         datasets: [{

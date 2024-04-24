@@ -8,9 +8,21 @@ const addRider = async (req, res) => {
     const { rider, age, address, mobile, email, nic } = req.body
     
     if (!req.files['insurance'] || !req.files['license']) {
-        return res.status(400).json('Insurance and license files are required.');
+        return res.status(400).json('Insurance and license files are required.')
     }
     
+    if (!/^[a-zA-Z]+ [a-zA-Z]+$/.test(rider)) {
+        return res.status(400).json('Name should contain only letters and have at least 2 parts (e.g., John Trex).')
+    }
+
+    if (!/^\d+$/.test(age)) {
+        return res.status(400).json('Age should contain only numbers.')
+    }
+
+    if (!/^\d{10}$/.test(mobile)) {
+        return res.status(400).json('Mobile number should contain only 10 numbers.')
+    }
+
     const insuranceTitle = req.files['insurance'][0].filename
     const licenseTitle = req.files['license'][0].filename
 

@@ -76,13 +76,16 @@ thead {
     margin: 0 10px;
     padding: 8px 16px;
     font-size: 16px;
-    background-color: #f1f1f1;
+    background-color: #1f69b8;
     border: none;
     border-radius: 4px;
     cursor: pointer;
 }
 
-.editt-button:hover,
 .deletee-button:hover {
-    background-color: #ddd;
+    background-color: #b42323;
+}
+
+.editt-button:hover {
+    background-color: rgb(100, 153, 20);
 }

@@ -6,9 +6,9 @@ const addOrder = async (req, res) => {
     
     const { order, user } = req.body
 
-    console.log(order)
-    console.log(userId)
-    console.log(user)
+    // console.log(order)
+    // console.log(userId)
+    // console.log(user)
 
     if (!userId) {
         console.log('error please log in')
@@ -52,7 +52,7 @@ const getAllOrders = async (req, res) => {
 const getClickedOrder = async (req, res) => {
     const { id } = req.params
 
-    console.log(id)
+    // console.log(id)
     if (!mongoose.Types.ObjectId.isValid(id)) {
         return res.status(400).json({ error: 'Invalid order ID' })
     }

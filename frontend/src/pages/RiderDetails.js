@@ -45,7 +45,7 @@ const RiderForm = () => {
                 console.log('Success ..');
             }
         } catch (error) {
-            setError('Failed !! ' + error.response.data);
+            setError(error.response.data);
         }
     };
 
