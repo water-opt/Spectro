@@ -19,6 +19,10 @@ const updateCartItemQuantity = async (req, res) => {
     const { id } = req.params;
     const { quantity, total } = req.body;
 
+    if (quantity == null | total == null) {
+        res.status(500).json({error : "Error passing data!!"});
+    }
+
     try {
         const cartItem = await Cart.findOneAndUpdate(
             { user: userId, 'orderItems.product': id },

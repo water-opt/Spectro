@@ -8,7 +8,7 @@ const addRider = async (req, res) => {
     const { rider, age, address, mobile, email, nic } = req.body
     
     if (!req.files['insurance'] || !req.files['license']) {
-        return res.status(400).json('Insurance and license files are required.')
+        return res.status(400).json('Insurance and license filess are required.')
     }
     
     if (!/^[a-zA-Z]+ [a-zA-Z]+$/.test(rider)) {

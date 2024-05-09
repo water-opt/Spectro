@@ -170,6 +170,9 @@ const updateOrder = async (req, res) => {
   if (!mongoose.Types.ObjectId.isValid(id)) {
     return res.status(400).json({ error: 'Invalid order ID' });
   }
+  if (updates == null) {
+    return res.status(400).json({error: "No updates found"});
+  }
 
   try {
     const order = await model.findByIdAndUpdate({ _id: id }, updates, { new: true }); // Return updated doc
@@ -179,7 +182,7 @@ const updateOrder = async (req, res) => {
     res.json(order);
   } catch (error) {
     console.error(error);
-    res.status(500).json({ error: 'Internal Server Error' }); // Corrected 'res.statement' to 'res.status'
+    res.status(500).json({ error: 'Internal Server Error' }); 
   }
 };
 
@@ -188,6 +191,18 @@ const updateQuantity = async (req, res) => {
   const { productId } = req.params;
   const { quantity } = req.body;
 
+  if (productId == null || quantity == null) {
+    res.status(404).json({error: "Required parameters are null"})
+  }
+
+  if (!mongoose.Types.ObjectId.isValid(productId)) {
+    return res.status(400).json({ error: 'Invalid order ID' });
+  }
+
+  if (!Number.isInteger(quantity)) {
+    return res.status(400).json({ error: 'Quantity must be an integer' });
+  }
+  
   try {
       const cartItem = await model.findOneAndUpdate(
           { 'product._id': productId },
