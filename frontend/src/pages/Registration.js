@@ -2,16 +2,17 @@ import React, { useState } from 'react';
 import { useNavigate } from 'react-router-dom';
 import '../styles/LoginPage.css';
 
-const UserRegistrationForm = () => {
-  const [username, setName] = useState('');
+const Registration = () => {
+  const [username, setUsername] = useState('');
   const [email, setEmail] = useState('');
   const [password, setPassword] = useState('');
   const [address, setAddress] = useState('');
+  const role = 'user';
   const [error, setError] = useState(null);
-  const navigate = useNavigate(); // Hook to navigate to different pages
+  const navigate = useNavigate(); 
 
   const handleSubmit = async (event) => {
-    event.preventDefault(); 
+    event.preventDefault();
 
     if (!username || !email || !password || !address) {
       setError('Please fill in all required fields.');
@@ -25,22 +26,23 @@ const UserRegistrationForm = () => {
           'Content-Type': 'application/json',
         },
         body: JSON.stringify({
-          username: username,
-          email: email,
-          password: password,
-          address: address,
+          username,
+          email,
+          password,
+          address,
+          role, 
         }),
       });
 
       if (!response.ok) {
-        throw new Error('Registration failed'); 
+        throw new Error('Registration failed');
       } else {
         const data = await response.json();
         console.log('Registration successful:', data);
-        navigate('/login'); // Navigate to login page
+        navigate('/login'); 
       }
     } catch (error) {
-      setError('Registration failed'); 
+      setError('Registration failed');
     }
   };
 
@@ -54,7 +56,7 @@ const UserRegistrationForm = () => {
           type="text"
           id="name"
           value={username}
-          onChange={(e) => setName(e.target.value)}
+          onChange={(e) => setUsername(e.target.value)}
           required
           className="login-input"
         />
@@ -76,7 +78,7 @@ const UserRegistrationForm = () => {
           required
           className="login-input"
         />
-        <label htmlFor="street">Address:</label>
+        <label htmlFor="address">Address:</label>
         <input
           type="text"
           id="address"
@@ -84,6 +86,13 @@ const UserRegistrationForm = () => {
           onChange={(e) => setAddress(e.target.value)}
           required
           className="login-input"
+        />
+     
+        <input
+          type="hidden"
+          id="role"
+          value={role}
+          readOnly 
         />
         <button type="submit" className="login-button">
           Register
@@ -93,4 +102,4 @@ const UserRegistrationForm = () => {
   );
 };
 
-export default UserRegistrationForm;
+export default Registration;

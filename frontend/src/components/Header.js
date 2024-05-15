@@ -46,7 +46,9 @@ const Header = () => {
                             {role === 'admin' && 
                             <li className="nav-item">
                                 <Link to='/admin/main/dashboard' className="nav-link" aria-current="page" style={{ color: '#333' }}><i className='fas fa-dashboard'></i> Dashboard</Link>
+                                {/* <Link to='/profileAdmin' className="nav-link" aria-current="page" style={{ color: '#333' }}><i className='fas fa-dashboard'></i> My profile</Link> */}
                             </li>}
+                        
                             {role === 'user' && 
                             <>
                                 <li className="nav-item">
@@ -60,6 +62,12 @@ const Header = () => {
                                 </li>
                                 <li className="nav-item">
                                     <Link to='/orders/management' className="nav-link" aria-current="page" style={{ color: '#333' }}><i className='fas fa-truck'></i> Orders</Link>
+                                </li>
+                                <li className="nav-item">
+                                    <Link to='/feedbackHome' className="nav-link" aria-current="page" style={{ color: '#333' }}><i className='fas fa-comment-alt'></i>Feedback</Link>
+                                </li>
+                                <li className="nav-item">
+                                    <Link to='/profile' className="nav-link" aria-current="page" style={{ color: '#333' }}><i className='fas fa-user'></i>My Profile</Link>
                                 </li>
                             </>
                             }

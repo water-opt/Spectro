@@ -7,6 +7,8 @@ const upload = require('../middleware/upload')
 const addVehicle = async (req, res) => {
     const { vehicleNumber } = req.body
 
+    console.log(vehicleNumber)
+
     if (!req.files['insurance'] || !req.files['license']) {
         return res.status(400).json('Insurance and license files are required.');
     }
