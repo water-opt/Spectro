@@ -12,7 +12,7 @@ const connectDB = async () => {
                 useUnifiedTopology: true,
             });
             if (process.env.NODE_ENV !== 'test') {
-                console.log('Database connecton success');
+                console.log('Database connection success');
             }
     } catch (err) {
         // Throw an error if the connection fails

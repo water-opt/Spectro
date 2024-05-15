@@ -37,7 +37,7 @@ const Header = () => {
         <header id='header' style={{ backgroundColor: '#f8f9fa', boxShadow: '0 2px 4px rgba(0,0,0,0.1)', padding: '10px 0' }}>
             <nav className="navbar navbar-expand-lg bg-body-tertiary">
                 <div className="container-fluid">
-                    <Link to='/' className="navbar-brand" style={{ fontWeight: 'bold', color: '#333' }}>{contentType}</Link>
+                    <Link to='/admin/main/dashboard' className="navbar-brand" style={{ fontWeight: 'bold', color: '#333' }}>{contentType}</Link>
                     <button className="navbar-toggler" type="button" data-bs-toggle="collapse" data-bs-target="#navbarTogglerDemo02" aria-controls="navbarTogglerDemo02" aria-expanded="false" aria-label="Toggle navigation">
                         <span className="navbar-toggler-icon"></span>
                     </button>
@@ -46,7 +46,9 @@ const Header = () => {
                             {role === 'admin' && 
                             <li className="nav-item">
                                 <Link to='/admin/main/dashboard' className="nav-link" aria-current="page" style={{ color: '#333' }}><i className='fas fa-dashboard'></i> Dashboard</Link>
+                                {/* <Link to='/profileAdmin' className="nav-link" aria-current="page" style={{ color: '#333' }}><i className='fas fa-dashboard'></i> My profile</Link> */}
                             </li>}
+                        
                             {role === 'user' && 
                             <>
                                 <li className="nav-item">
@@ -60,6 +62,12 @@ const Header = () => {
                                 </li>
                                 <li className="nav-item">
                                     <Link to='/orders/management' className="nav-link" aria-current="page" style={{ color: '#333' }}><i className='fas fa-truck'></i> Orders</Link>
+                                </li>
+                                <li className="nav-item">
+                                    <Link to='/feedbackHome' className="nav-link" aria-current="page" style={{ color: '#333' }}><i className='fas fa-comment-alt'></i>Feedback</Link>
+                                </li>
+                                <li className="nav-item">
+                                    <Link to='/profile' className="nav-link" aria-current="page" style={{ color: '#333' }}><i className='fas fa-user'></i>My Profile</Link>
                                 </li>
                             </>
                             }

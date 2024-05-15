@@ -205,10 +205,15 @@ const MainAdminDashboard = () => {
                 <div className='title-container'>
                     <p><strong>Admin Menu</strong></p>
                 </div>
-                <div className='options-container'>
+                <div className='options-container' >
                     <Link to='/delivery/main/dashboard' className='option'><button style={{ backgroundColor: 'transparent', color: 'white', border: 'none' }}>Delivery</button></Link>
                     <Link to='/admin/dashboard' className='option'><button style={{ backgroundColor: 'transparent', color: 'white', border: 'none' }}>Product</button></Link>
-                    <Link to='#' className='option'><button style={{ backgroundColor: 'transparent', color: 'white', border: 'none' }}>SupplierRequests</button></Link>
+                    <Link to='/admin/quatationDetails' className='option'><button style={{ backgroundColor: 'transparent', color: 'white', border: 'none' }}>SupplierRequests</button></Link>
+                    <Link to='/admin/WherehouseDetails' className='option'><button style={{ backgroundColor: 'transparent', color: 'white', border: 'none' }}>WareHouse</button></Link>
+                    <Link to='/managerHome' className='option'><button style={{ backgroundColor: 'transparent', color: 'white', border: 'none' }}>Employee</button></Link>
+                    <Link to='/complaintDashboard' className='option'><button style={{ backgroundColor: 'transparent', color: 'white', border: 'none' }}>Complaints</button></Link>
+                    <Link to='/userList' className='option'><button style={{ backgroundColor: 'transparent', color: 'white', border: 'none' }}>Users</button></Link>
+                    <Link to='/profileAdmin' className='option'><button style={{ backgroundColor: 'transparent', color: 'white', border: 'none' }}>My profile</button></Link>
                 </div>
             </div>
            {!isSidePanelOpen && (

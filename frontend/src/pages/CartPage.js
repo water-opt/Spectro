@@ -43,6 +43,7 @@ const Cart = () => {
             updateTotalPrice(updatedCartItems);
         } catch (error) {
             console.error('Error updating quantity:', error);
+            alert('Failed to update quantity. Please try again.');
         }
     };
 
@@ -50,9 +51,7 @@ const Cart = () => {
         if (window.confirm('Confirm removing ..')) {
             try {
                 await axios.delete(`/api/cart/${id}`);
-                const updatedCartItems = cartItems.filter(item => item._id !== id);
-                setCartItems(updatedCartItems);
-                updateTotalPrice(updatedCartItems);
+                setCartItems(prevCartItems => prevCartItems.filter(item => item._id !== id)); // Update cartItems with a new array reference
                 alert('Deleted successfully ..');
             } catch (error) {
                 console.error('Error deleting product:', error);
@@ -94,7 +93,7 @@ const Cart = () => {
     };
 
     return (
-        <div className="cart-container">
+        <div key={cartItems.length} className="cart-container">
             {loading && <p>Loading...</p>}
             {!confirmStep && (
                 <>
@@ -107,7 +106,7 @@ const Cart = () => {
                         </thead>
                         <tbody>
                             {cartItems.map((item, index) => (
-                                <tr key={index}>
+                                <tr key={`${item._id}-${index}`}>
                                     <td>
                                         {item.orderItems && item.orderItems.map((orderItem, subIndex) => (
                                             <div className="item-info" key={subIndex} style={{ marginTop: '6px' }}>

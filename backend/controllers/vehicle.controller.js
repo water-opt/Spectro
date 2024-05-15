@@ -25,6 +25,21 @@ const addVehicle = async (req, res) => {
     }
 }
 
+const deleteVehicle = async(req, res) => {
+    const { id } = req.params
+
+    if (mongoose.Types.ObjectId.isValid(id)) {
+        return res.status(400).json({ error: 'Invalid vehicle ID' });
+    }
+
+    try {
+        await model.findByIdAndDelete(id)
+        res.status(400).json("success")
+    } catch (errors) {
+        res.status(400).json(`error: ${errors}`)
+    }
+}
+
 const getVehicles = async (req, res) => {
     try {
         const vehicle = await model.find()
@@ -55,6 +70,7 @@ const getOneVehicle = async (req, res) => {
 module.exports = {
     addVehicle,
     getVehicles,
-    getOneVehicle
+    getOneVehicle,
+    deleteVehicle
 }
 

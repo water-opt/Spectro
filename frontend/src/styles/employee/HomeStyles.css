@@ -1,0 +1,24 @@
+.home{
+    background-image: url(/public/images/emp.jpg);
+    background-repeat: no-repeat;
+ 
+}
+
+.appointment{
+    background-image: url(/public/images/leave2.jpg);
+    background-repeat: no-repeat;
+
+}
+
+.manager{
+    background-image: url(/public/images/manager.jpg);
+    background-repeat: no-repeat;
+
+}
+
+.leaveappointment{
+    background-image: url(/public/images/leave2.jpg);
+    background-repeat: no-repeat;
+ 
+}
+
