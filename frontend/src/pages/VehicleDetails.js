@@ -37,7 +37,7 @@ const VehicleForm = () => {
                 console.log('Success ..');
             }
         } catch (error) {
-            setError(error.response.data);
+            setError('Failed !! ' + error.response.data);
         }
     };
 

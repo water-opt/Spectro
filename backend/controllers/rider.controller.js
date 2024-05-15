@@ -8,9 +8,9 @@ const addRider = async (req, res) => {
     const { rider, age, address, mobile, email, nic } = req.body
     
     if (!req.files['insurance'] || !req.files['license']) {
-        return res.status(400).json('Insurance and license filess are required.')
+        return res.status(400).json('Insurance and license files are required.');
     }
-    
+
     if (!/^[a-zA-Z]+ [a-zA-Z]+$/.test(rider)) {
         return res.status(400).json('Name should contain only letters and have at least 2 parts (e.g., John Trex).')
     }
@@ -23,6 +23,8 @@ const addRider = async (req, res) => {
         return res.status(400).json('Mobile number should contain only 10 numbers.')
     }
 
+
+    
     const insuranceTitle = req.files['insurance'][0].filename
     const licenseTitle = req.files['license'][0].filename
 
@@ -77,30 +79,9 @@ const DeleteRider = async (req, res) => {
     }
 }
 
-const EditRider = async (req, res) => {
-    const { id } = req.params
-    const updates = req.body
-
-    if (!mongoose.Types.ObjectId.isValid(id)) {
-        return res.status(400).json({ error: 'Invalid Rider ID' });
-    }
-
-    try {
-        const order = await model.findByIdAndUpdate({ _id: id }, updates, { new: true }); // Return updated doc
-        if (!order) {
-          return res.status(404).json({ error: 'Rider not found' });
-        }
-        res.json(order);
-      } catch (error) {
-        console.error(error);
-        res.status(500).json({ error: 'Internal Server Error' }); // Corrected 'res.statement' to 'res.status'
-      }
-}
-
 module.exports = {
     addRider,
     getRiders,
     getOneRider,
-    DeleteRider,
-    EditRider
+    DeleteRider
 }

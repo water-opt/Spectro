@@ -1,5 +1,5 @@
 import React, { useState, useContext } from 'react';
-import { useNavigate } from 'react-router-dom';
+import { useNavigate, Link } from 'react-router-dom'; // Import Link for navigation
 import '../styles/LoginPage.css';
 import RoleContext from '../components/RoleContext'; 
 
@@ -9,6 +9,10 @@ const LoginPage = () => {
   const [error, setError] = useState(null);
   const { setRole } = useContext(RoleContext);
   const navigate = useNavigate(); // Hook to navigate to different pages
+
+  // const handleRegisterClick = () => {
+  //   navigate('/register'); // Navigate to the registration page
+  // };
 
   const handleSubmit = async (event) => {
     event.preventDefault(); 
@@ -30,8 +34,7 @@ const LoginPage = () => {
       }
       console.log('Login successful:', data); // Handle successful login
 
-      console.log(data.role)
-      setRole(data.role)
+      setRole(data.role);
 
       if (data.role === 'rider') {
         navigate('/delivery/rider/dashboard');
@@ -70,8 +73,12 @@ const LoginPage = () => {
         />
         <button type="submit" className="login-button">Login</button>
       </form>
+
+      <p>Don't have an account? <Link to="/register">Register</Link></p>
+ 
     </div>
   );
 };
 
 export default LoginPage;
+

@@ -6,7 +6,7 @@ const Rider = require('../models/Rider');
 const SALT_ROUNDS = 10
 
 const registerUser = async (req, res) => {
-  const { username, email, password, address} = req.body
+  const { username, email, password, address, role} = req.body
 
   if (!username || !email || !password) {
     return res.status(400).json({error: 'error occured in json body'})
@@ -16,7 +16,7 @@ const registerUser = async (req, res) => {
   } else {
     try {
       const hashed = await bcrypt.hash(password, SALT_ROUNDS)
-      const user = await User.create({username, email, "password": hashed, address})
+      const user = await User.create({username, email, "password": hashed, address, role})
 
       req.session.userId = user._id
 
@@ -88,5 +88,140 @@ const LogoutUser = async (req, res) => {
 };
 
 
+const getUserProfile = async (req, res) => {
+  try {
+    const userId = req.session.userId;
+    const user = await User.findById(userId);
+    if (!user) {
+      return res.status(404).json({ error: 'User not found' });
+    }
+    res.json(user);
+  } catch (error) {
+    console.error(error);
+    res.status(500).json({ error: 'Internal Server Error' });
+  }
+};
 
-module.exports = { registerUser, loginUser, LogoutUser };
+const updateUserProfile = async (req, res) => {
+  const userId = req.session.userId;
+  const { username, email, password, address } = req.body;
+
+  try {
+    const user = await User.findById(userId);
+    if (!user) {
+      return res.status(404).json({ error: 'User not found' });
+    }
+
+    // Update fields
+    user.username = username || user.username;
+    user.email = email || user.email;
+    user.address = address || user.address;
+
+    if (password) {
+      const hashedPassword = await bcrypt.hash(password, SALT_ROUNDS);
+      user.password = hashedPassword;
+    }
+
+    await user.save();
+    res.json({ message: 'Profile updated successfully' });
+  } catch (error) {
+    console.error(error);
+    res.status(500).json({ error: 'Internal Server Error' });
+  }
+};
+
+// Delete user profile
+const deleteUserProfile = async (req, res) => {
+  const userId = req.session.userId;
+
+  try {
+    await User.findByIdAndDelete(userId);
+    req.session.destroy(); // Destroy session after deleting user
+    res.json({ message: 'Profile deleted successfully' });
+  } catch (error) {
+    console.error(error);
+    res.status(500).json({ error: 'Internal Server Error' });
+  }
+};
+
+const getAllUsers = async (req, res) => {
+  try {
+    const users = await User.find({});
+    res.json(users);
+  } catch (error) {
+    console.error(error);
+    res.status(500).json({ error: 'Internal Server Error' });
+  }
+};
+
+// CRUD operations for specific user by ID
+
+// Get user by ID
+const getUserById = async (req, res) => {
+  const { id } = req.params;
+
+  try {
+    const user = await User.findById(id);
+    if (!user) {
+      return res.status(404).json({ error: 'User not found' });
+    }
+    res.json(user);
+  } catch (error) {
+    console.error(error);
+    res.status(500).json({ error: 'Internal Server Error' });
+  }
+};
+
+// Update user by ID
+const updateUserById = async (req, res) => {
+  const { id } = req.params;
+  const { username, email, password, address } = req.body;
+
+  try {
+    const user = await User.findById(id);
+    if (!user) {
+      return res.status(404).json({ error: 'User not found' });
+    }
+
+    if (username) user.username = username;
+    if (email) user.email = email;
+    if (address) user.address = address;
+    if (password) {
+      const hashedPassword = await bcrypt.hash(password, SALT_ROUNDS);
+      user.password = hashedPassword;
+    }
+
+    await user.save();
+    res.json({ message: 'User updated successfully' });
+  } catch (error) {
+    console.error(error);
+    res.status(500).json({ error: 'Internal Server Error' });
+  }
+};
+
+// Delete user by ID
+const deleteUserById = async (req, res) => {
+  const { id } = req.params;
+
+  try {
+    await User.findByIdAndDelete(id);
+    res.json({ message: 'User deleted successfully' });
+  } catch (error) {
+    console.error(error);
+    res.status(500).json({ error: 'Internal Server Error' });
+  }
+};
+
+
+module.exports = { registerUser, 
+  loginUser,
+  LogoutUser ,
+  getUserProfile,
+  updateUserProfile,
+  deleteUserProfile ,
+   
+  getAllUsers, 
+  getUserById,
+  updateUserById,
+  deleteUserById 
+};
