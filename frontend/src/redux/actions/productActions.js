@@ -76,7 +76,7 @@ export const deleteProduct = productId => async dispatch => {
 
 export const fetchProducts = () => async (dispatch) => {
     try {
-        const response = await axios.get('http://localhost:4000/api/products');
+        const response = await axios.get('http://localhost:4000/api/product');
         console.log(response.data); // Check the structure of response.data
         dispatch({ type: GET_PRODUCTS, payload: response.data.products });
         return response.data.products; // Return data for handling in the component

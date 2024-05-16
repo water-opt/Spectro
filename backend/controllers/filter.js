@@ -1,8 +1,5 @@
 const Product = require("../models/Product");
 
-
-
-
 exports.getNewArrivals = async (req, res) => {
 
     const sortBy = req.query.sortBy ? req.query.sortBy : 'desc';
