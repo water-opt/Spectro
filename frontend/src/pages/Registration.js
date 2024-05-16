@@ -11,11 +11,22 @@ const Registration = () => {
   const [error, setError] = useState(null);
   const navigate = useNavigate(); 
 
+  const validateEmail = (input) => {           
+    // Regular expression for email validation
+    const emailRegex = /^[^\s@]+@[^\s@]+\.[^\s@]+$/;
+    return emailRegex.test(input);
+  };
+
   const handleSubmit = async (event) => {
     event.preventDefault();
 
     if (!username || !email || !password || !address) {
       setError('Please fill in all required fields.');
+      return;
+    }
+
+    if (!validateEmail(email)) {                
+      setError('Please enter a valid email.');
       return;
     }
 

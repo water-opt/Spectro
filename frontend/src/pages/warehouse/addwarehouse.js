@@ -49,7 +49,7 @@ function AddWarehouse() {
         }
 
         if (Object.values(errors).some(error => error !== "")) {
-            alert("Please fix all validation errors before submitting.");
+            alert("Please fill out all fields.");
             return;
         }
 

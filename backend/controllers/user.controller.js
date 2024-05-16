@@ -6,24 +6,34 @@ const Rider = require('../models/Rider');
 const SALT_ROUNDS = 10
 
 const registerUser = async (req, res) => {
-  const { username, email, password, address, role} = req.body
+  const { username, email, password, address, role } = req.body
+
+  // Email validation function
+  const validateEmail = (email) => {
+    // Regular expression for email validation
+    const emailRegex = /^[^\s@]+@[^\s@]+\.[^\s@]+$/;
+    return emailRegex.test(email);
+  };
+
 
   if (!username || !email || !password) {
-    return res.status(400).json({error: 'error occured in json body'})
-  } else if (await User.findOne({email})) {
-    console.log('user exists !!')
-    return res.status(400)
-  } else {
+    return res.status(400).json({ error: 'error occured in json body' });
+  } else if (!validateEmail(email)) {
+    return res.status(400).json({ error: 'Please enter a valid email' });
+  }else if (await User.findOne({ email })) {
+    return res.status(400).json({ error: 'User already exists' }); 
+  } 
+  else {
     try {
       const hashed = await bcrypt.hash(password, SALT_ROUNDS)
-      const user = await User.create({username, email, "password": hashed, address, role})
+      const user = await User.create({ username, email, "password": hashed, address, role })
 
       req.session.userId = user._id
 
-      return res.status(200).json({error: 'user created successfully ..'})
+      return res.status(200).json({ error: 'user created successfully ..' })
     } catch (errors) {
       console.log(`error: ${errors}`)
-      return res.status(400).json({error: 'An error occured'})
+      return res.status(400).json({ error: 'An error occured' })
     }
   }
 
@@ -31,7 +41,14 @@ const registerUser = async (req, res) => {
 
 const loginUser = async (req, res) => {
   const { email, password } = req.body;
-  
+
+  // Email validation function
+  const validateEmail = (email) => {
+    // Regular expression for email validation
+    const emailRegex = /^[^\s@]+@[^\s@]+\.[^\s@]+$/;
+    return emailRegex.test(email);
+  };
+
   console.log(typeof password)
 
   try {
@@ -39,7 +56,10 @@ const loginUser = async (req, res) => {
 
     if (!email || !password) {
       return res.status(400).json({ error: 'Please provide email and password' });
+    }else if (!validateEmail(email)) {
+      return res.status(400).json({ error: 'Please enter a valid email' });  
     }
+
 
     let user, rider;
     let isMatchUser, isMatchRider;
@@ -49,14 +69,14 @@ const loginUser = async (req, res) => {
 
     if (user) {
       isMatchUser = bcrypt.compare(password, user.password);
-    } else if (rider) { 
+    } else if (rider) {
       isMatchRider = rider.nic.toString() === password;
     } else {
       return res.status(401).json({ error: 'Login failed' });
     }
 
     if (!(isMatchUser || isMatchRider)) {
-      return res.status(401).json({ error: 'Login failed' }); 
+      return res.status(401).json({ error: 'Login failed' });
     } else if (isMatchRider) {
       req.session.userId = rider._id;
       req.session.role = rider.role;
@@ -70,7 +90,7 @@ const loginUser = async (req, res) => {
       console.log(`Login successful | User: ${user._id}`);
       res.json({ message: 'Login successful', role: user.role });
       console.log(user.role)
-    } 
+    }
   } catch (error) {
     console.error(error);
     res.status(500).json({ error: `${error}` });
@@ -213,15 +233,16 @@ const deleteUserById = async (req, res) => {
 };
 
 
-module.exports = { registerUser, 
+module.exports = {
+  registerUser,
   loginUser,
-  LogoutUser ,
+  LogoutUser,
   getUserProfile,
   updateUserProfile,
-  deleteUserProfile ,
-   
-  getAllUsers, 
+  deleteUserProfile,
+
+  getAllUsers,
   getUserById,
   updateUserById,
-  deleteUserById 
+  deleteUserById
 };

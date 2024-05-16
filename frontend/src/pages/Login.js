@@ -14,8 +14,25 @@ const LoginPage = () => {
   //   navigate('/register'); // Navigate to the registration page
   // };
 
+  const validateEmail = (input) => {
+    // Regular expression for email validation
+    const emailRegex = /^[^\s@]+@[^\s@]+\.[^\s@]+$/;
+    return emailRegex.test(input);
+  };
+
   const handleSubmit = async (event) => {
     event.preventDefault(); 
+
+    if (!email || !password) {
+      setError('Please fill in all fields');
+      return;
+    }
+
+    ////
+    if (!validateEmail(email)) {            
+      setError('Please enter a valid email');
+      return;
+    }
 
     try {
       const response = await fetch('/api/user/login', {
