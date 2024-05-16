@@ -1,6 +1,6 @@
 import { useState, useEffect } from 'react'
 import axios from 'axios'
-import '../styles/VehicleDash.css'
+import '../styles/newStylesRider.css'
 
 const Vehicles = () => {
     const [riders, setRiders] = useState(null)
