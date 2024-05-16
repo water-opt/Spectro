@@ -89,7 +89,7 @@ function AddSupplier() {
                         name="supplier_name"
                         value={order.supplier_name}
                         onChange={handleChange}
-                        placeholder="Supplier ID"
+                        placeholder="Supplier Name"
                         style={{ width: "100%", height: "40px", padding: "0 12px", borderRadius: "5px", border: "1px solid #ccc" }}
                     />
                 </div>

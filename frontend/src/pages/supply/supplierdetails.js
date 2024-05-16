@@ -106,7 +106,7 @@ function SupplierDetails() {
                     <table style={{ width: '100%' }}>
                         <thead>
                             <tr className="headrow" style={{ backgroundColor: '#6dec93', color: '#fff' }}>
-                                <th style={{ backgroundColor: '#999696', padding: '12px', textAlign: 'left', borderBottom: '1px solid #92d48d' }}>Supplier ID</th>
+                                <th style={{ backgroundColor: '#999696', padding: '12px', textAlign: 'left', borderBottom: '1px solid #92d48d' }}>Supplier Name</th>
                                 <th style={{ backgroundColor: '#999696', padding: '12px', textAlign: 'left', borderBottom: '1px solid #92d48d' }}>Company Name</th>
                                 <th style={{ backgroundColor: '#999696', padding: '12px', textAlign: 'left', borderBottom: '1px solid #92d48d' }}>Address</th>
                                 <th style={{ backgroundColor: '#999696', padding: '12px', textAlign: 'left', borderBottom: '1px solid #92d48d' }}>Email</th>
